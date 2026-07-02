@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family:'IBM Plex Sans Arabic', system-ui, sans-serif; background:#f0f0f1; color:#1d2327; -webkit-font-smoothing:antialiased; }
+  table { border-collapse: collapse; }
+  select, button, input { font-family: inherit; }
+  ::-webkit-scrollbar { width:11px; height:11px; }
+  ::-webkit-scrollbar-thumb { background:#c3c4c7; border-radius:6px; border:2px solid #f0f0f1; }
+  ::-webkit-scrollbar-track { background:#f0f0f1; }
+</style>
+</helmet>
+
+<div dir="rtl" style="min-height:100vh; display:flex; flex-direction:column; background:#f0f0f1;">
+
+  <!-- ADMIN BAR -->
+  <div style="height:44px; background:#1d2327; display:flex; align-items:center; padding:0 16px; color:#c3c4c7; flex-shrink:0; position:sticky; top:0; z-index:40;">
+    <div style="display:flex; align-items:center; gap:8px; font-weight:600; color:#fff; font-size:14px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#72aee6" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 0 0 18M3 12h18"></path></svg>
+      <span>شركة الفروع التجارية</span>
+    </div>
+    <div style="width:1px; height:20px; background:#3c434a; margin:0 14px;"></div>
+    <div style="display:flex; align-items:center; gap:6px; font-size:13px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span>3</span></div>
+    <div style="margin-inline-start:auto; display:flex; align-items:center; gap:10px; font-size:13px;">
+      <span>مرحبًا، مدير النظام</span>
+      <div style="width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#2271b1,#135e96); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:600; font-size:13px;">م</div>
+    </div>
+  </div>
+
+  <div style="display:flex; flex:1; min-height:0;">
+
+    <!-- SIDEBAR -->
+    <aside style="width:238px; background:#1d2327; flex-shrink:0; padding-bottom:40px;">
+      <div style="padding:16px 16px 12px; display:flex; align-items:center; gap:10px; border-bottom:1px solid #2c3338; margin-bottom:8px;">
+        <div style="width:34px; height:34px; border-radius:8px; background:linear-gradient(135deg,#f2c200,#e0a800); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1d2327" stroke-width="2.2"><path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2ZM9 7V5h6v2"></path></svg>
+        </div>
+        <div style="line-height:1.25;">
+          <div style="color:#fff; font-weight:600; font-size:13.5px;">الموارد البشرية والفروع</div>
+          <div style="color:#8c8f94; font-size:11px;">Branch HR &amp; Commission</div>
+        </div>
+      </div>
+      <nav>
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="10">
+          <a onClick="{{ item.onClick }}" style="{{ item.style }}" style-hover="background:#2c3338; color:#fff;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex-shrink:0;"><path d="{{ item.iconPath }}"></path></svg>
+            <span>{{ item.label }}</span>
+          </a>
+        </sc-for>
+      </nav>
+      <div style="margin:16px 16px 0; padding-top:14px; border-top:1px solid #2c3338; color:#646970; font-size:11px; line-height:1.7;">
+        الإصدار 1.0.0<br>آخر مزامنة: اليوم 09:14 ص
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column;">
+
+      <!-- GLOBAL FILTER BAR -->
+      <div style="background:#fff; border-bottom:1px solid #e2e4e7; padding:12px 26px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; position:sticky; top:44px; z-index:30;">
+        <div style="display:flex; align-items:center; gap:11px; margin-inline-end:auto;">
+          <div style="width:38px; height:38px; border-radius:9px; background:#fdf4dd; display:flex; align-items:center; justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b78a00" stroke-width="2"><path d="{{ pageIcon }}"></path></svg>
+          </div>
+          <div style="line-height:1.3;">
+            <div style="font-size:18px; font-weight:600;">{{ pageTitle }}</div>
+            <div style="font-size:12px; color:#787c82;">{{ pageSub }}</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span style="font-size:12px; color:#787c82; display:flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"></path></svg>الفترة</span>
+          <select defaultValue="فبراير" style="padding:7px 12px; border:1px solid #d5d8db; border-radius:7px; font-size:13px; color:#1d2327; background:#fff; min-width:104px;">
+            <option>يناير</option><option>فبراير</option><option>مارس</option><option>أبريل</option><option>مايو</option><option>يونيو</option>
+          </select>
+          <select defaultValue="2026" style="padding:7px 12px; border:1px solid #d5d8db; border-radius:7px; font-size:13px; color:#1d2327; background:#fff;">
+            <option>2026</option><option>2025</option><option>2024</option>
+          </select>
+          <div style="width:1px; height:26px; background:#e2e4e7;"></div>
+          <select defaultValue="كل الفروع" style="padding:7px 12px; border:1px solid #d5d8db; border-radius:7px; font-size:13px; color:#1d2327; background:#fff; min-width:130px;">
+            <option>كل الفروع</option><option>فرع مدينة نصر</option><option>فرع المهندسين</option><option>فرع سموحة</option><option>فرع المنصورة</option><option>فرع طنطا</option><option>فرع أسيوط</option>
+          </select>
+          <button style="{{ btnPrimary }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"></path><path d="M3.5 9a9 9 0 0 1 14.9-3.4L23 10M1 14l4.6 4.4A9 9 0 0 0 20.5 15"></path></svg>تحديث</button>
+        </div>
+      </div>
+
+      <!-- PAGE BODY -->
+      <div style="padding:24px 26px 48px; flex:1;">
+
+        <!-- ============ DASHBOARD ============ -->
+        <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- KPI CARDS -->
+          <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-bottom:22px;">
+            <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="6">
+              <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; padding:16px; box-shadow:0 1px 2px rgba(0,0,0,0.04);">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                  <div style="{{ k.iconWrap }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="{{ k.icon }}"></path></svg></div>
+                  <span style="{{ k.deltaStyle }}">{{ k.delta }}</span>
+                </div>
+                <div style="font-size:22px; font-weight:700; letter-spacing:-0.5px;">{{ k.value }}</div>
+                <div style="font-size:12.5px; color:#787c82; margin-top:3px;">{{ k.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.7fr 1fr; gap:18px;">
+            <!-- LEFT COLUMN -->
+            <div style="display:flex; flex-direction:column; gap:18px;">
+              <!-- recent sales -->
+              <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); overflow:hidden;">
+                <div style="padding:15px 18px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #eef0f1;">
+                  <div style="font-size:15px; font-weight:600;">أحدث إدخالات المبيعات</div>
+                  <a onClick="{{ goSales }}" style="font-size:12.5px; color:#2271b1; text-decoration:none; cursor:pointer; display:flex; align-items:center; gap:4px;">عرض الكل <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg></a>
+                </div>
+                <table style="width:100%; font-size:13px;">
+                  <thead><tr style="background:#fdf9ec;">
+                    <th style="text-align:right; padding:10px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الفرع</th>
+                    <th style="text-align:right; padding:10px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الشهر</th>
+                    <th style="text-align:left; padding:10px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">المبيعات</th>
+                    <th style="text-align:center; padding:10px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">تحقيق الهدف</th>
+                    <th style="text-align:center; padding:10px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الحالة</th>
+                  </tr></thead>
+                  <tbody>
+                    <sc-for list="{{ recentSales }}" as="r" hint-placeholder-count="5">
+                      <tr style="border-bottom:1px solid #f4f5f6;">
+                        <td style="padding:11px 18px; font-weight:600;">{{ r.branch }}</td>
+                        <td style="padding:11px 12px; color:#646970;">{{ r.month }}</td>
+                        <td style="padding:11px 12px; text-align:left; font-variant-numeric:tabular-nums; font-weight:600;">{{ r.salesF }}</td>
+                        <td style="padding:11px 12px; text-align:center;"><span style="{{ r.achStyle }}">{{ r.pct }}</span></td>
+                        <td style="padding:11px 18px; text-align:center;"><span style="{{ r.pill.style }}"><i style="{{ r.pill.dot }}"></i>{{ r.pill.label }}</span></td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+              <!-- payroll summary -->
+              <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:18px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:15px;">
+                  <div style="font-size:15px; font-weight:600;">ملخص الرواتب — فبراير 2026</div>
+                  <span style="font-size:12px; color:#787c82;">37 موظف</span>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px;">
+                  <div style="border:1px solid #eef0f1; border-radius:10px; padding:13px;">
+                    <div style="font-size:12px; color:#787c82; margin-bottom:5px;">إجمالي الرواتب</div>
+                    <div style="font-size:18px; font-weight:700; font-variant-numeric:tabular-nums;">302,200</div>
+                  </div>
+                  <div style="border:1px solid #eef0f1; border-radius:10px; padding:13px; background:#f6fbf7;">
+                    <div style="font-size:12px; color:#0a7c2f; margin-bottom:5px;">تم الدفع</div>
+                    <div style="font-size:18px; font-weight:700; color:#0a7c2f;">6 موظفين</div>
+                  </div>
+                  <div style="border:1px solid #eef0f1; border-radius:10px; padding:13px; background:#fffdf5;">
+                    <div style="font-size:12px; color:#8a6100; margin-bottom:5px;">قيد الانتظار</div>
+                    <div style="font-size:18px; font-weight:700; color:#8a6100;">4 موظفين</div>
+                  </div>
+                  <div style="border:1px solid #eef0f1; border-radius:10px; padding:13px; background:#fdf6f6;">
+                    <div style="font-size:12px; color:#b32d2e; margin-bottom:5px;">موقوف</div>
+                    <div style="font-size:18px; font-weight:700; color:#b32d2e;">2 موظفين</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div style="display:flex; flex-direction:column; gap:18px;">
+              <!-- alerts -->
+              <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:18px;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d63638" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0ZM12 9v4M12 17h.01"></path></svg>
+                  <div style="font-size:15px; font-weight:600;">التنبيهات</div>
+                  <span style="margin-inline-start:auto; background:#fbe9ea; color:#b32d2e; font-size:12px; font-weight:600; padding:2px 9px; border-radius:999px;">4</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="4">
+                    <div style="{{ a.wrap }}">
+                      <div style="{{ a.iconWrap }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="{{ a.icon }}"></path></svg></div>
+                      <div style="line-height:1.4;">
+                        <div style="font-size:13px; font-weight:600;">{{ a.title }}</div>
+                        <div style="font-size:11.5px; color:#787c82; margin-top:2px;">{{ a.desc }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <!-- commission summary -->
+              <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:18px;">
+                <div style="font-size:15px; font-weight:600; margin-bottom:15px;">ملخص العمولات</div>
+                <div style="text-align:center; padding:8px 0 16px;">
+                  <div style="font-size:12px; color:#787c82;">إجمالي العمولات هذا الشهر</div>
+                  <div style="font-size:28px; font-weight:700; color:#2271b1; letter-spacing:-1px; margin-top:2px;">15,351.44 <span style="font-size:15px; color:#787c82; font-weight:500;">ج.م</span></div>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:9px;">
+                  <sc-for list="{{ commissionMini }}" as="c" hint-placeholder-count="4">
+                    <div>
+                      <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:4px;"><span style="color:#3c434a;">{{ c.name }}</span><span style="font-weight:600; font-variant-numeric:tabular-nums;">{{ c.valueF }}</span></div>
+                      <div style="height:7px; background:#f0f0f1; border-radius:999px; overflow:hidden;"><div style="{{ c.barStyle }}"></div></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ BRANCHES ============ -->
+        <sc-if value="{{ isBranches }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- toolbar -->
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px; flex-wrap:wrap;">
+            <div style="position:relative; flex:1; max-width:320px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2" style="position:absolute; top:50%; right:11px; transform:translateY(-50%);"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input placeholder="بحث باسم الفرع أو الكود..." style="width:100%; padding:9px 34px 9px 12px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; outline:none;">
+            </div>
+            <select style="padding:9px 12px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; background:#fff;"><option>كل الحالات</option><option>نشط</option><option>غير نشط</option></select>
+            <select style="padding:9px 12px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; background:#fff;"><option>كل المدن</option><option>القاهرة</option><option>الجيزة</option><option>الإسكندرية</option></select>
+            <button style="{{ btnPrimary }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>إضافة فرع</button>
+          </div>
+          <!-- table card -->
+          <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); overflow:hidden;">
+            <div style="overflow-x:auto;">
+            <table style="width:100%; font-size:13px; min-width:940px;">
+              <thead><tr style="background:#fdf9ec;">
+                <th style="text-align:right; padding:12px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الفرع</th>
+                <th style="text-align:right; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">المدير</th>
+                <th style="text-align:center; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الموظفون</th>
+                <th style="text-align:left; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">المبيعات</th>
+                <th style="text-align:left; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">العمولة</th>
+                <th style="text-align:left; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الرواتب</th>
+                <th style="text-align:left; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الصافي</th>
+                <th style="text-align:center; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الحالة</th>
+                <th style="text-align:center; padding:12px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;"></th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ branchesRows }}" as="b" hint-placeholder-count="6">
+                  <tr style="{{ b.tr }}">
+                    <td style="padding:12px 18px;">
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <span style="{{ b.avatar }}">{{ b.code }}</span>
+                        <div style="line-height:1.3;"><div style="font-weight:600;">{{ b.name }}</div><div style="font-size:11.5px; color:#9aa0a6;">{{ b.city }}</div></div>
+                      </div>
+                    </td>
+                    <td style="padding:12px 12px; color:#3c434a;">{{ b.manager }}</td>
+                    <td style="padding:12px 12px; text-align:center; color:#3c434a;">{{ b.emp }}</td>
+                    <td style="padding:12px 12px; text-align:left; font-weight:600; font-variant-numeric:tabular-nums;">{{ b.salesF }}</td>
+                    <td style="padding:12px 12px; text-align:left; color:#2271b1; font-weight:600; font-variant-numeric:tabular-nums;">{{ b.commF }}</td>
+                    <td style="padding:12px 12px; text-align:left; font-variant-numeric:tabular-nums;">{{ b.payF }}</td>
+                    <td style="padding:12px 12px; text-align:left; font-weight:700; font-variant-numeric:tabular-nums; color:#0a7c2f;">{{ b.netF }}</td>
+                    <td style="padding:12px 12px; text-align:center;"><span style="{{ b.pill.style }}"><i style="{{ b.pill.dot }}"></i>{{ b.pill.label }}</span></td>
+                    <td style="padding:12px 18px; text-align:center;">
+                      <div style="display:inline-flex; gap:6px;">
+                        <button style="width:30px; height:30px; border:1px solid #e2e4e7; background:#fff; border-radius:7px; cursor:pointer; color:#646970; display:inline-flex; align-items:center; justify-content:center;" style-hover="border-color:#2271b1; color:#2271b1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"></path></svg></button>
+                        <button style="width:30px; height:30px; border:1px solid #e2e4e7; background:#fff; border-radius:7px; cursor:pointer; color:#646970; display:inline-flex; align-items:center; justify-content:center;" style-hover="border-color:#2271b1; color:#2271b1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                </sc-for>
+              </tbody>
+              <tfoot><tr style="background:#f6f7f8; border-top:2px solid #e2e4e7;">
+                <td style="padding:13px 18px; font-weight:700;">الإجمالي — 6 فروع</td>
+                <td></td>
+                <td style="padding:13px 12px; text-align:center; font-weight:700;">{{ branchTotals.emp }}</td>
+                <td style="padding:13px 12px; text-align:left; font-weight:700; font-variant-numeric:tabular-nums;">{{ branchTotals.salesF }}</td>
+                <td style="padding:13px 12px; text-align:left; font-weight:700; color:#2271b1; font-variant-numeric:tabular-nums;">{{ branchTotals.commF }}</td>
+                <td style="padding:13px 12px; text-align:left; font-weight:700; font-variant-numeric:tabular-nums;">{{ branchTotals.payF }}</td>
+                <td style="padding:13px 12px; text-align:left; font-weight:700; color:#0a7c2f; font-variant-numeric:tabular-nums;">{{ branchTotals.netF }}</td>
+                <td colspan="2"></td>
+              </tr></tfoot>
+            </table>
+            </div>
+            <div style="padding:12px 18px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid #eef0f1; font-size:12.5px; color:#787c82;">
+              <span>عرض 1–6 من 6 فروع</span>
+              <div style="display:flex; gap:6px;">
+                <button style="padding:5px 11px; border:1px solid #e2e4e7; background:#fff; border-radius:6px; color:#9aa0a6; cursor:not-allowed;">السابق</button>
+                <button style="padding:5px 11px; border:1px solid #2271b1; background:#2271b1; color:#fff; border-radius:6px; cursor:pointer;">1</button>
+                <button style="padding:5px 11px; border:1px solid #e2e4e7; background:#fff; border-radius:6px; color:#9aa0a6; cursor:not-allowed;">التالي</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ EMPLOYEES ============ -->
+        <sc-if value="{{ isEmployees }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- filters -->
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px; flex-wrap:wrap;">
+            <div style="position:relative; flex:1; max-width:280px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2" style="position:absolute; top:50%; right:11px; transform:translateY(-50%);"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input placeholder="بحث بالاسم أو الكود..." style="width:100%; padding:9px 34px 9px 12px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; outline:none;">
+            </div>
+            <select value="{{ empBranch }}" onChange="{{ setEmpBranch }}" style="padding:9px 12px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; background:#fff; min-width:140px;">
+              <sc-for list="{{ branchOptions }}" as="o" hint-placeholder-count="7"><option value="{{ o }}">{{ o }}</option></sc-for>
+            </select>
+            <select value="{{ empTitle }}" onChange="{{ setEmpTitle }}" style="padding:9px 12px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; background:#fff;">
+              <sc-for list="{{ titleOptions }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for>
+            </select>
+            <select value="{{ empStatus }}" onChange="{{ setEmpStatus }}" style="padding:9px 12px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; background:#fff;">
+              <option value="الكل">كل الحالات</option><option value="نشط">نشط</option><option value="غير نشط">غير نشط</option>
+            </select>
+            <button style="{{ btnPrimary }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>إضافة موظف</button>
+          </div>
+          <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); overflow:hidden;">
+            <div style="overflow-x:auto;">
+            <table style="width:100%; font-size:13px; min-width:960px;">
+              <thead><tr style="background:#fdf9ec;">
+                <th style="text-align:right; padding:12px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الموظف</th>
+                <th style="text-align:right; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الفرع</th>
+                <th style="text-align:right; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الوظيفة</th>
+                <th style="text-align:right; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الهاتف</th>
+                <th style="text-align:left; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الراتب الأساسي</th>
+                <th style="text-align:center; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">العمولة</th>
+                <th style="text-align:center; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الحالة</th>
+                <th style="text-align:center; padding:12px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;"></th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ employeesRows }}" as="e" hint-placeholder-count="8">
+                  <tr style="{{ e.tr }}">
+                    <td style="padding:11px 18px;">
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <span style="{{ e.avatar }}">{{ e.name }}</span>
+                        <div style="line-height:1.3;"><div style="font-weight:600;">{{ e.name }}</div><div style="font-size:11.5px; color:#9aa0a6;">{{ e.code }} · {{ e.dept }}</div></div>
+                      </div>
+                    </td>
+                    <td style="padding:11px 12px; color:#3c434a;">{{ e.branch }}</td>
+                    <td style="padding:11px 12px; color:#3c434a;">{{ e.title }}</td>
+                    <td style="padding:11px 12px; color:#646970; font-variant-numeric:tabular-nums; direction:ltr; text-align:right;">{{ e.phone }}</td>
+                    <td style="padding:11px 12px; text-align:left; font-weight:600; font-variant-numeric:tabular-nums;">{{ e.salaryF }}</td>
+                    <td style="padding:11px 12px; text-align:center;"><span style="{{ e.elig.style }}">{{ e.elig.label }}</span></td>
+                    <td style="padding:11px 12px; text-align:center;"><span style="{{ e.pill.style }}"><i style="{{ e.pill.dot }}"></i>{{ e.pill.label }}</span></td>
+                    <td style="padding:11px 18px; text-align:center;">
+                      <button style="width:30px; height:30px; border:1px solid #e2e4e7; background:#fff; border-radius:7px; cursor:pointer; color:#646970; display:inline-flex; align-items:center; justify-content:center;" style-hover="border-color:#2271b1; color:#2271b1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"></path></svg></button>
+                    </td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+            </div>
+            <div style="padding:12px 18px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid #eef0f1; font-size:12.5px; color:#787c82;">
+              <span>عرض {{ empCount }} موظف</span>
+              <div style="display:flex; gap:6px;">
+                <button style="padding:5px 11px; border:1px solid #e2e4e7; background:#fff; border-radius:6px; color:#9aa0a6; cursor:not-allowed;">السابق</button>
+                <button style="padding:5px 11px; border:1px solid #2271b1; background:#2271b1; color:#fff; border-radius:6px; cursor:pointer;">1</button>
+                <button style="padding:5px 11px; border:1px solid #e2e4e7; background:#fff; border-radius:6px; color:#9aa0a6; cursor:not-allowed;">التالي</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ SALES + COMMISSION ============ -->
+        <sc-if value="{{ isSales }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- success notice -->
+          <div style="display:flex; align-items:center; gap:10px; background:#f6fbf7; border:1px solid #cce8d4; border-right:4px solid #12a150; border-radius:9px; padding:12px 16px; margin-bottom:18px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a7c2f" stroke-width="2"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"></path><path d="M22 4 12 14.01l-3-3"></path></svg>
+            <span style="font-size:13px; color:#0a7c2f;">تم حفظ مبيعات <b>فرع مدينة نصر</b> لشهر فبراير 2026 وحساب العمولة تلقائيًا.</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px;">
+            <!-- entry form -->
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:20px;">
+              <div style="font-size:15px; font-weight:600; margin-bottom:18px; display:flex; align-items:center; gap:8px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2271b1" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>إدخال مبيعات شهرية</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div><label style="display:block; font-size:12.5px; color:#646970; margin-bottom:6px;">الفرع</label><select defaultValue="فرع مدينة نصر" style="width:100%; padding:9px 11px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; background:#fff;"><option>فرع مدينة نصر</option><option>فرع المهندسين</option><option>فرع سموحة</option></select></div>
+                <div><label style="display:block; font-size:12.5px; color:#646970; margin-bottom:6px;">الشهر / السنة</label><div style="display:flex; gap:8px;"><select defaultValue="فبراير" style="flex:1; padding:9px 11px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; background:#fff;"><option>يناير</option><option>فبراير</option><option>مارس</option></select><select defaultValue="2026" style="width:82px; padding:9px 11px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; background:#fff;"><option>2026</option><option>2025</option></select></div></div>
+                <div><label style="display:block; font-size:12.5px; color:#646970; margin-bottom:6px;">إجمالي المبيعات (ج.م)</label><input defaultValue="1,584,291" style="width:100%; padding:9px 11px; border:1px solid #d5d8db; border-radius:8px; font-size:14px; font-weight:600; outline:none; font-variant-numeric:tabular-nums;"></div>
+                <div><label style="display:block; font-size:12.5px; color:#646970; margin-bottom:6px;">هدف المبيعات (ج.م)</label><input defaultValue="1,500,000" style="width:100%; padding:9px 11px; border:1px solid #d5d8db; border-radius:8px; font-size:14px; outline:none; font-variant-numeric:tabular-nums;"></div>
+                <div><label style="display:block; font-size:12.5px; color:#646970; margin-bottom:6px;">نسبة العمولة (%)</label><input defaultValue="0.20" style="width:100%; padding:9px 11px; border:1px solid #d5d8db; border-radius:8px; font-size:14px; outline:none; font-variant-numeric:tabular-nums;"></div>
+                <div><label style="display:block; font-size:12.5px; color:#646970; margin-bottom:6px;">ملاحظات</label><input placeholder="اختياري" style="width:100%; padding:9px 11px; border:1px solid #d5d8db; border-radius:8px; font-size:13px; outline:none;"></div>
+              </div>
+              <div style="display:flex; gap:10px; margin-top:18px;">
+                <button style="{{ btnPrimary }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8M7 3v5h8"></path></svg>حفظ وحساب العمولة</button>
+                <button style="padding:8px 14px; background:#fff; color:#646970; border:1px solid #d5d8db; border-radius:7px; font-size:13px; cursor:pointer;">إلغاء</button>
+              </div>
+            </div>
+
+            <!-- commission calc preview -->
+            <div style="background:linear-gradient(135deg,#1d2327,#2c3338); border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:22px; color:#fff;">
+              <div style="font-size:14px; color:#a7aaad; margin-bottom:20px; display:flex; align-items:center; gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f2c200" stroke-width="2"><path d="M9 11H3v10h6zM15 3H9v18h6zM21 8h-6v13h6z"></path></svg>حساب العمولة التلقائي</div>
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:13px; border-bottom:1px solid #3c434a;"><span style="color:#a7aaad; font-size:13px;">إجمالي المبيعات</span><span style="font-size:16px; font-weight:600; font-variant-numeric:tabular-nums;">1,584,291</span></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:13px; border-bottom:1px solid #3c434a;"><span style="color:#a7aaad; font-size:13px;">نسبة العمولة</span><span style="font-size:16px; font-weight:600;">0.20%</span></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:13px; border-bottom:1px solid #3c434a;"><span style="color:#a7aaad; font-size:13px;">تحقيق الهدف</span><span style="background:#12a150; color:#fff; font-size:13px; font-weight:600; padding:3px 10px; border-radius:999px;">106% محقق</span></div>
+                <div style="background:rgba(242,194,0,0.12); border:1px solid rgba(242,194,0,0.35); border-radius:10px; padding:16px; margin-top:6px; text-align:center;">
+                  <div style="color:#f2c200; font-size:12.5px; margin-bottom:4px;">أساس العمولة القابل للتوزيع</div>
+                  <div style="font-size:30px; font-weight:700; letter-spacing:-1px; font-variant-numeric:tabular-nums;">3,168.58 <span style="font-size:15px; color:#a7aaad; font-weight:500;">ج.م</span></div>
+                  <div style="color:#a7aaad; font-size:11.5px; margin-top:6px;">= 1,584,291 × 0.20%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- distribution table -->
+          <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); overflow:hidden;">
+            <div style="padding:15px 18px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #eef0f1;">
+              <div><div style="font-size:15px; font-weight:600;">توزيع العمولة على الموظفين</div><div style="font-size:12px; color:#787c82; margin-top:2px;">فرع مدينة نصر — فبراير 2026</div></div>
+              <span style="background:#e7f6ec; color:#0a7c2f; font-size:12px; font-weight:600; padding:4px 11px; border-radius:999px;">المجموع = 100%</span>
+            </div>
+            <table style="width:100%; font-size:13px;">
+              <thead><tr style="background:#fdf9ec;">
+                <th style="text-align:right; padding:12px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الموظف / الدور</th>
+                <th style="text-align:center; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">النسبة</th>
+                <th style="text-align:left; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">قيمة العمولة</th>
+                <th style="text-align:left; padding:12px 12px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">خصم الغياب</th>
+                <th style="text-align:left; padding:12px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">العمولة النهائية</th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ distRows }}" as="d" hint-placeholder-count="4">
+                  <tr style="{{ d.tr }}">
+                    <td style="padding:13px 18px;"><div style="font-weight:600;">{{ d.role }}</div><div style="font-size:11.5px; color:#9aa0a6;">{{ d.emp }}</div></td>
+                    <td style="padding:13px 12px; text-align:center;"><span style="background:#eaf2fb; color:#2271b1; font-weight:600; padding:3px 10px; border-radius:999px; font-variant-numeric:tabular-nums;">{{ d.pct }}</span></td>
+                    <td style="padding:13px 12px; text-align:left; font-variant-numeric:tabular-nums; font-weight:600;">{{ d.amountF }}</td>
+                    <td style="padding:13px 12px; text-align:left;"><span style="{{ d.absenceStyle }}">{{ d.absenceF }}</span></td>
+                    <td style="padding:13px 18px; text-align:left; font-weight:700; color:#0a7c2f; font-variant-numeric:tabular-nums;">{{ d.finalF }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+              <tfoot><tr style="background:#f6f7f8; border-top:2px solid #e2e4e7;">
+                <td style="padding:13px 18px; font-weight:700;">الإجمالي</td>
+                <td style="padding:13px 12px; text-align:center; font-weight:700;">100%</td>
+                <td style="padding:13px 12px; text-align:left; font-weight:700; font-variant-numeric:tabular-nums;">{{ distTotal.amountF }}</td>
+                <td style="padding:13px 12px; text-align:left; font-weight:700; color:#b32d2e; font-variant-numeric:tabular-nums;">{{ distTotal.absenceF }}</td>
+                <td style="padding:13px 18px; text-align:left; font-weight:700; color:#0a7c2f; font-variant-numeric:tabular-nums;">{{ distTotal.finalF }}</td>
+              </tr></tfoot>
+            </table>
+            <div style="padding:13px 18px; display:flex; gap:10px; border-top:1px solid #eef0f1;">
+              <button style="{{ btnPrimary }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg>اعتماد التوزيع</button>
+              <button style="padding:8px 14px; background:#fff; color:#3c434a; border:1px solid #d5d8db; border-radius:7px; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"></path><path d="M3.5 9a9 9 0 0 1 14.9-3.4L23 10M1 14l4.6 4.4A9 9 0 0 0 20.5 15"></path></svg>إعادة الحساب</button>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ PAYROLL ============ -->
+        <sc-if value="{{ isPayroll }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- summary cards -->
+          <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:18px;">
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; padding:15px 16px; box-shadow:0 1px 2px rgba(0,0,0,0.04);"><div style="font-size:12px; color:#787c82; margin-bottom:6px;">إجمالي الرواتب الأساسية</div><div style="font-size:20px; font-weight:700; font-variant-numeric:tabular-nums;">{{ payrollTotals.basicF }}</div></div>
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; padding:15px 16px; box-shadow:0 1px 2px rgba(0,0,0,0.04);"><div style="font-size:12px; color:#787c82; margin-bottom:6px;">إجمالي العمولات</div><div style="font-size:20px; font-weight:700; color:#2271b1; font-variant-numeric:tabular-nums;">{{ payrollTotals.commF }}</div></div>
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; padding:15px 16px; box-shadow:0 1px 2px rgba(0,0,0,0.04);"><div style="font-size:12px; color:#787c82; margin-bottom:6px;">إجمالي الخصومات</div><div style="font-size:20px; font-weight:700; color:#b32d2e; font-variant-numeric:tabular-nums;">{{ payrollTotals.absenceF }}</div></div>
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; padding:15px 16px; box-shadow:0 1px 2px rgba(0,0,0,0.04);"><div style="font-size:12px; color:#787c82; margin-bottom:6px;">إجمالي المكافآت</div><div style="font-size:20px; font-weight:700; color:#0a7c2f; font-variant-numeric:tabular-nums;">{{ payrollTotals.bonusF }}</div></div>
+            <div style="background:linear-gradient(135deg,#2271b1,#135e96); border-radius:12px; padding:15px 16px; color:#fff;"><div style="font-size:12px; color:#cfe3f5; margin-bottom:6px;">صافي الرواتب</div><div style="font-size:20px; font-weight:700; font-variant-numeric:tabular-nums;">{{ payrollTotals.netF }}</div></div>
+          </div>
+          <!-- action bar -->
+          <div style="display:flex; align-items:center; gap:9px; margin-bottom:18px; flex-wrap:wrap;">
+            <button style="{{ btnPrimary }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M12 18v-6M9 15h6"></path></svg>إنشاء كشف الرواتب</button>
+            <button onClick="{{ openConfirm }}" style="padding:8px 14px; background:#fff; color:#3c434a; border:1px solid #d5d8db; border-radius:7px; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="border-color:#2271b1; color:#2271b1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"></path><path d="M3.5 9a9 9 0 0 1 14.9-3.4L23 10M1 14l4.6 4.4A9 9 0 0 0 20.5 15"></path></svg>إعادة الحساب</button>
+            <button style="padding:8px 14px; background:#fff; color:#0a7c2f; border:1px solid #cce8d4; border-radius:7px; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="background:#f6fbf7;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M8 13l3 3 5-5"></path></svg>تصدير Excel</button>
+            <button style="padding:8px 14px; background:#fff; color:#3c434a; border:1px solid #d5d8db; border-radius:7px; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" style-hover="border-color:#2271b1; color:#2271b1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"></path></svg>طباعة</button>
+            <button style="margin-inline-start:auto; padding:8px 14px; background:#0a7c2f; color:#fff; border:none; border-radius:7px; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg>تعليم الكل كمدفوع</button>
+          </div>
+          <!-- payroll table -->
+          <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); overflow:hidden;">
+            <div style="overflow-x:auto;">
+            <table style="width:100%; font-size:12.5px; min-width:1040px;">
+              <thead><tr style="background:#fdf9ec;">
+                <th style="text-align:right; padding:11px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الموظف</th>
+                <th style="text-align:right; padding:11px 10px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الفرع</th>
+                <th style="text-align:left; padding:11px 10px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الأساسي</th>
+                <th style="text-align:left; padding:11px 10px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">العمولة</th>
+                <th style="text-align:left; padding:11px 10px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">خصم الغياب</th>
+                <th style="text-align:left; padding:11px 10px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">مكافأة</th>
+                <th style="text-align:left; padding:11px 10px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">خصم آخر</th>
+                <th style="text-align:left; padding:11px 10px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">صافي الراتب</th>
+                <th style="text-align:center; padding:11px 10px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;">الحالة</th>
+                <th style="text-align:center; padding:11px 18px; font-weight:600; color:#6a5a1e; border-bottom:1px solid #f0e6c4;"></th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ payrollRows }}" as="p" hint-placeholder-count="12">
+                  <tr style="{{ p.tr }}">
+                    <td style="padding:10px 18px;"><div style="font-weight:600;">{{ p.name }}</div><div style="font-size:11px; color:#9aa0a6;">{{ p.title }}</div></td>
+                    <td style="padding:10px 10px; color:#3c434a;">{{ p.branch }}</td>
+                    <td style="padding:10px 10px; text-align:left; font-variant-numeric:tabular-nums;">{{ p.basicF }}</td>
+                    <td style="padding:10px 10px; text-align:left; color:#2271b1; font-variant-numeric:tabular-nums;">{{ p.commF }}</td>
+                    <td style="padding:10px 10px; text-align:left;"><span style="{{ p.dedStyle }}">{{ p.absenceF }}</span></td>
+                    <td style="padding:10px 10px; text-align:left;"><span style="{{ p.addStyle }}">{{ p.bonusF }}</span></td>
+                    <td style="padding:10px 10px; text-align:left;"><span style="{{ p.dedStyle }}">{{ p.otherF }}</span></td>
+                    <td style="padding:10px 10px; text-align:left; font-weight:700; font-variant-numeric:tabular-nums;">{{ p.netF }}</td>
+                    <td style="padding:10px 10px; text-align:center;"><span style="{{ p.pill.style }}"><i style="{{ p.pill.dot }}"></i>{{ p.pill.label }}</span></td>
+                    <td style="padding:10px 18px; text-align:center;"><button style="padding:5px 10px; border:1px solid #cce8d4; background:#f6fbf7; color:#0a7c2f; border-radius:6px; font-size:12px; cursor:pointer; white-space:nowrap;">تم الدفع</button></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+              <tfoot><tr style="background:#f6f7f8; border-top:2px solid #e2e4e7;">
+                <td style="padding:12px 18px; font-weight:700;">الإجمالي — 12 موظف</td>
+                <td></td>
+                <td style="padding:12px 10px; text-align:left; font-weight:700; font-variant-numeric:tabular-nums;">{{ payrollTotals.basicF }}</td>
+                <td style="padding:12px 10px; text-align:left; font-weight:700; color:#2271b1; font-variant-numeric:tabular-nums;">{{ payrollTotals.commF }}</td>
+                <td style="padding:12px 10px; text-align:left; font-weight:700; color:#b32d2e; font-variant-numeric:tabular-nums;">{{ payrollTotals.absenceF }}</td>
+                <td style="padding:12px 10px; text-align:left; font-weight:700; color:#0a7c2f; font-variant-numeric:tabular-nums;">{{ payrollTotals.bonusF }}</td>
+                <td style="padding:12px 10px; text-align:left; font-weight:700; color:#b32d2e; font-variant-numeric:tabular-nums;">{{ payrollTotals.otherF }}</td>
+                <td style="padding:12px 10px; text-align:left; font-weight:800; font-variant-numeric:tabular-nums;">{{ payrollTotals.netF }}</td>
+                <td colspan="2"></td>
+              </tr></tfoot>
+            </table>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ REPORTS ============ -->
+        <sc-if value="{{ isReports }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- highlight cards -->
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:18px;">
+            <sc-for list="{{ repKpis }}" as="r" hint-placeholder-count="4">
+              <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; padding:16px; box-shadow:0 1px 2px rgba(0,0,0,0.04); display:flex; align-items:center; gap:13px;">
+                <div style="width:44px; height:44px; border-radius:11px; background:{{ r.bg }}; color:{{ r.color }}; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="{{ r.icon }}"></path></svg></div>
+                <div style="line-height:1.35;"><div style="font-size:12px; color:#787c82;">{{ r.label }}</div><div style="font-size:17px; font-weight:700;">{{ r.value }}</div><div style="font-size:12px; color:#9aa0a6; font-variant-numeric:tabular-nums;">{{ r.sub }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px;">
+            <!-- sales by branch -->
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:18px;">
+              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">المبيعات حسب الفرع</div>
+              <div style="font-size:12px; color:#787c82; margin-bottom:20px;">فبراير 2026 — بالجنيه المصري</div>
+              <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; height:180px; padding:0 4px;">
+                <sc-for list="{{ salesBars }}" as="s" hint-placeholder-count="6">
+                  <div style="flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
+                    <div style="font-size:10.5px; color:#646970; margin-bottom:6px; font-variant-numeric:tabular-nums;">{{ s.valueF }}</div>
+                    <div style="{{ s.bar }}"></div>
+                    <div style="font-size:11px; color:#787c82; margin-top:8px;">{{ s.label }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <!-- payroll by branch -->
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:18px;">
+              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">الرواتب حسب الفرع</div>
+              <div style="font-size:12px; color:#787c82; margin-bottom:20px;">فبراير 2026 — بالجنيه المصري</div>
+              <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; height:180px; padding:0 4px;">
+                <sc-for list="{{ payBars }}" as="s" hint-placeholder-count="6">
+                  <div style="flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
+                    <div style="font-size:10.5px; color:#646970; margin-bottom:6px; font-variant-numeric:tabular-nums;">{{ s.valueF }}</div>
+                    <div style="{{ s.bar }}"></div>
+                    <div style="font-size:11px; color:#787c82; margin-top:8px;">{{ s.label }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:18px;">
+            <!-- commission trend line -->
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:18px;">
+              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">اتجاه العمولات الشهري</div>
+              <div style="font-size:12px; color:#787c82; margin-bottom:16px;">آخر 6 أشهر — إجمالي عمولات الشركة</div>
+              <svg viewBox="0 0 540 190" style="width:100%; height:auto;" preserveAspectRatio="none">
+                <defs><linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2271b1" stop-opacity="0.22"></stop><stop offset="1" stop-color="#2271b1" stop-opacity="0"></stop></linearGradient></defs>
+                <line x1="14" y1="146" x2="526" y2="146" stroke="#eef0f1" stroke-width="1"></line>
+                <line x1="14" y1="100" x2="526" y2="100" stroke="#f4f5f6" stroke-width="1"></line>
+                <line x1="14" y1="54" x2="526" y2="54" stroke="#f4f5f6" stroke-width="1"></line>
+                <polygon points="{{ trendArea }}" fill="url(#tg)"></polygon>
+                <polyline points="{{ trendLine }}" fill="none" stroke="#2271b1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                <sc-for list="{{ trendDots }}" as="d" hint-placeholder-count="6">
+                  <circle cx="{{ d.cx }}" cy="{{ d.cy }}" r="4" fill="#fff" stroke="#2271b1" stroke-width="2.5"></circle>
+                  <text x="{{ d.lx }}" y="178" text-anchor="middle" font-size="10.5" fill="#787c82" font-family="IBM Plex Sans Arabic">{{ d.label }}</text>
+                </sc-for>
+              </svg>
+            </div>
+            <!-- absence by branch -->
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:18px;">
+              <div style="font-size:15px; font-weight:600; margin-bottom:4px;">أيام الغياب حسب الفرع</div>
+              <div style="font-size:12px; color:#787c82; margin-bottom:18px;">فبراير 2026</div>
+              <div style="display:flex; flex-direction:column; gap:13px;">
+                <sc-for list="{{ absBars }}" as="a" hint-placeholder-count="6">
+                  <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="width:76px; font-size:12px; color:#3c434a; text-align:left; flex-shrink:0;">{{ a.label }}</div>
+                    <div style="flex:1; background:#f5f6f7; border-radius:999px; height:20px; overflow:hidden;"><div style="{{ a.bar }}"></div></div>
+                    <div style="width:44px; font-size:12px; font-weight:600; color:#8a6100; font-variant-numeric:tabular-nums;">{{ a.value }} يوم</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ ERD ============ -->
+        <sc-if value="{{ isErd }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:18px 20px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+            <div><div style="font-size:15px; font-weight:600;">مخطط علاقات قاعدة البيانات</div><div style="font-size:12.5px; color:#787c82; margin-top:2px;">بنية الجداول والعلاقات — جاهز لتسليم المطوّر (Custom Tables / CPT)</div></div>
+            <div style="display:flex; gap:16px; font-size:12px; color:#646970; flex-wrap:wrap;">
+              <span style="display:flex; align-items:center; gap:6px;"><i style="width:12px; height:12px; border-radius:3px; background:#f2c200; display:inline-block;"></i>مفتاح أساسي (PK)</span>
+              <span style="display:flex; align-items:center; gap:6px;"><i style="width:12px; height:12px; border-radius:3px; background:#2271b1; display:inline-block;"></i>مفتاح خارجي (FK)</span>
+              <span style="display:flex; align-items:center; gap:6px;"><i style="width:20px; height:0; border-top:2px dashed #9aa0a6; display:inline-block;"></i>يستخدم في الحساب</span>
+            </div>
+          </div>
+
+          <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:12px; overflow-x:auto;">
+          <div dir="ltr" style="position:relative; width:1180px; height:740px; margin:0 auto;">
+            <!-- connectors -->
+            <svg viewBox="0 0 1180 740" style="position:absolute; inset:0; width:100%; height:100%; z-index:0;">
+              <path d="M590 210 L320 260" fill="none" stroke="#c9ccd1" stroke-width="2"></path>
+              <path d="M590 210 L860 260" fill="none" stroke="#c9ccd1" stroke-width="2"></path>
+              <path d="M205 470 L205 510" fill="none" stroke="#c9ccd1" stroke-width="2"></path>
+              <path d="M320 380 L475 560" fill="none" stroke="#c9ccd1" stroke-width="2"></path>
+              <path d="M975 470 L975 510" fill="none" stroke="#c9ccd1" stroke-width="2"></path>
+              <path d="M860 600 L705 590" fill="none" stroke="#9aa0a6" stroke-width="2" stroke-dasharray="6 5"></path>
+              <path d="M320 600 L475 600" fill="none" stroke="#9aa0a6" stroke-width="2" stroke-dasharray="6 5"></path>
+              <path d="M975 380 L735 590" fill="none" stroke="#9aa0a6" stroke-width="2" stroke-dasharray="6 5"></path>
+            </svg>
+            <!-- relationship badges -->
+            <div style="position:absolute; left:400px; top:222px; z-index:2; background:#eaf2fb; color:#2271b1; font-size:11px; font-weight:600; padding:2px 8px; border-radius:999px; border:1px solid #cfe3f5;">1 : ∞</div>
+            <div style="position:absolute; left:730px; top:222px; z-index:2; background:#eaf2fb; color:#2271b1; font-size:11px; font-weight:600; padding:2px 8px; border-radius:999px; border:1px solid #cfe3f5;">1 : ∞</div>
+            <div style="position:absolute; left:150px; top:478px; z-index:2; background:#eaf2fb; color:#2271b1; font-size:11px; font-weight:600; padding:2px 8px; border-radius:999px; border:1px solid #cfe3f5;">1 : ∞</div>
+            <div style="position:absolute; left:340px; top:452px; z-index:2; background:#eaf2fb; color:#2271b1; font-size:11px; font-weight:600; padding:2px 8px; border-radius:999px; border:1px solid #cfe3f5;">1 : ∞</div>
+            <div style="position:absolute; left:918px; top:478px; z-index:2; background:#e7f6ec; color:#0a7c2f; font-size:11px; font-weight:600; padding:2px 8px; border-radius:999px; border:1px solid #cce8d4;">1 : 1 يولّد</div>
+
+            <!-- BRANCH -->
+            <div style="position:absolute; left:470px; top:20px; width:240px; z-index:1; background:#fff; border:1px solid #e2e4e7; border-radius:11px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,0.06);">
+              <div style="background:#1d2327; color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f2c200" stroke-width="2"><path d="M4 21V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v16M12 9h7a1 1 0 0 1 1 1v11"></path></svg><div dir="rtl" style="flex:1;"><div style="font-size:13.5px; font-weight:600;">الفرع</div><div style="font-size:10.5px; color:#8c8f94; direction:ltr; text-align:right;">wp_bhcm_branches</div></div></div>
+              <div dir="rtl" style="font-size:12px;">
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#f2c200; color:#1d2327; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">PK</span><span style="font-weight:600;">id</span></div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">name · code · city</div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">manager · phone</div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">sales_target</div>
+                <div style="padding:6px 13px; color:#3c434a;">status</div>
+              </div>
+            </div>
+
+            <!-- EMPLOYEE -->
+            <div style="position:absolute; left:90px; top:255px; width:230px; z-index:1; background:#fff; border:1px solid #e2e4e7; border-radius:11px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,0.06);">
+              <div style="background:#7c3aed; color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path></svg><div dir="rtl" style="flex:1;"><div style="font-size:13.5px; font-weight:600;">الموظف</div><div style="font-size:10.5px; color:#e6dcfb; direction:ltr; text-align:right;">wp_bhcm_employees</div></div></div>
+              <div dir="rtl" style="font-size:12px;">
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#f2c200; color:#1d2327; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">PK</span><span style="font-weight:600;">id</span></div>
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#2271b1; color:#fff; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">FK</span><span>branch_id</span></div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">name · code · job_title</div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">basic_salary</div>
+                <div style="padding:6px 13px; color:#3c434a;">commission_eligible · status</div>
+              </div>
+            </div>
+
+            <!-- MONTHLY SALES -->
+            <div style="position:absolute; left:860px; top:255px; width:230px; z-index:1; background:#fff; border:1px solid #e2e4e7; border-radius:11px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,0.06);">
+              <div style="background:#2271b1; color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"></path></svg><div dir="rtl" style="flex:1;"><div style="font-size:13.5px; font-weight:600;">المبيعات الشهرية</div><div style="font-size:10.5px; color:#cfe3f5; direction:ltr; text-align:right;">wp_bhcm_sales</div></div></div>
+              <div dir="rtl" style="font-size:12px;">
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#f2c200; color:#1d2327; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">PK</span><span style="font-weight:600;">id</span></div>
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#2271b1; color:#fff; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">FK</span><span>branch_id</span></div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">month · year</div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">total_sales · target</div>
+                <div style="padding:6px 13px; color:#3c434a;">commission_rate · commission_base</div>
+              </div>
+            </div>
+
+            <!-- ATTENDANCE -->
+            <div style="position:absolute; left:90px; top:510px; width:230px; z-index:1; background:#fff; border:1px solid #e2e4e7; border-radius:11px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,0.06);">
+              <div style="background:#e0a800; color:#1d2327; padding:10px 14px; display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1d2327" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"></path></svg><div dir="rtl" style="flex:1;"><div style="font-size:13.5px; font-weight:600;">الحضور والغياب</div><div style="font-size:10.5px; color:#7a5e00; direction:ltr; text-align:right;">wp_bhcm_attendance</div></div></div>
+              <div dir="rtl" style="font-size:12px;">
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#f2c200; color:#1d2327; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">PK</span><span style="font-weight:600;">id</span></div>
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#2271b1; color:#fff; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">FK</span><span>employee_id</span></div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">month · year</div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">absence_days · late_hours</div>
+                <div style="padding:6px 13px; color:#3c434a;">deduction</div>
+              </div>
+            </div>
+
+            <!-- PAYROLL -->
+            <div style="position:absolute; left:465px; top:490px; width:250px; z-index:1; background:#fff; border:2px solid #0a7c2f; border-radius:11px; overflow:hidden; box-shadow:0 6px 18px rgba(10,124,47,0.14);">
+              <div style="background:#0a7c2f; color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M19 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2ZM3 10h18"></path></svg><div dir="rtl" style="flex:1;"><div style="font-size:13.5px; font-weight:600;">كشف الراتب</div><div style="font-size:10.5px; color:#cce8d4; direction:ltr; text-align:right;">wp_bhcm_payroll</div></div></div>
+              <div dir="rtl" style="font-size:12px;">
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#f2c200; color:#1d2327; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">PK</span><span style="font-weight:600;">id</span></div>
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#2271b1; color:#fff; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">FK</span><span>employee_id</span></div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">basic · commission · bonus</div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">absence_deduction · other_deduction</div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#0a7c2f; font-weight:600;">net_salary</div>
+                <div style="padding:6px 13px; color:#3c434a;">status</div>
+              </div>
+            </div>
+
+            <!-- COMMISSION -->
+            <div style="position:absolute; left:860px; top:510px; width:230px; z-index:1; background:#fff; border:1px solid #e2e4e7; border-radius:11px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,0.06);">
+              <div style="background:#135e96; color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 21v-7M12 21v-9M20 21v-5M1 14h6M9 8h6M17 16h6"></path></svg><div dir="rtl" style="flex:1;"><div style="font-size:13.5px; font-weight:600;">سجل العمولة</div><div style="font-size:10.5px; color:#cfe3f5; direction:ltr; text-align:right;">wp_bhcm_commissions</div></div></div>
+              <div dir="rtl" style="font-size:12px;">
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#f2c200; color:#1d2327; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">PK</span><span style="font-weight:600;">id</span></div>
+                <div style="display:flex; align-items:center; gap:7px; padding:6px 13px; border-bottom:1px solid #f4f5f6;"><span style="background:#2271b1; color:#fff; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px;">FK</span><span>sales_id · employee_id</span></div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">role_percent · amount</div>
+                <div style="padding:6px 13px; border-bottom:1px solid #f4f5f6; color:#3c434a;">absence_deduction</div>
+                <div style="padding:6px 13px; color:#3c434a;">final_amount</div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <!-- payroll formula -->
+          <div style="background:#1d2327; border-radius:12px; padding:18px 22px; margin-top:16px; color:#fff;">
+            <div style="font-size:13px; color:#a7aaad; margin-bottom:12px; display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f2c200" stroke-width="2"><path d="M4 19h16M4 5h16M9 5v14M15 5v14"></path></svg>معادلة صافي الراتب</div>
+            <div dir="rtl" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:14px;">
+              <span style="background:#2c3338; padding:7px 13px; border-radius:8px;">الراتب الأساسي</span>
+              <span style="color:#12a150; font-weight:700;">+</span>
+              <span style="background:#2c3338; padding:7px 13px; border-radius:8px;">العمولة</span>
+              <span style="color:#12a150; font-weight:700;">+</span>
+              <span style="background:#2c3338; padding:7px 13px; border-radius:8px;">المكافآت</span>
+              <span style="color:#d63638; font-weight:700;">−</span>
+              <span style="background:#2c3338; padding:7px 13px; border-radius:8px;">خصم الغياب</span>
+              <span style="color:#d63638; font-weight:700;">−</span>
+              <span style="background:#2c3338; padding:7px 13px; border-radius:8px;">خصومات أخرى</span>
+              <span style="color:#f2c200; font-weight:700; font-size:18px;">=</span>
+              <span style="background:#0a7c2f; padding:7px 15px; border-radius:8px; font-weight:700;">صافي الراتب</span>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ COMMISSION RULES ============ -->
+        <sc-if value="{{ isRules }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- default rate + formula -->
+          <div style="display:grid; grid-template-columns:1fr 1.4fr; gap:18px; margin-bottom:18px;">
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:20px;">
+              <div style="font-size:15px; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2271b1" stroke-width="2"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"></path></svg>نسبة العمولة الافتراضية</div>
+              <div style="display:flex; align-items:flex-end; gap:12px;">
+                <div style="flex:1;">
+                  <label style="display:block; font-size:12.5px; color:#646970; margin-bottom:6px;">النسبة على إجمالي مبيعات الفرع</label>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <input defaultValue="2" style="width:80px; padding:10px 12px; border:1px solid #d5d8db; border-radius:8px; font-size:20px; font-weight:700; text-align:center; outline:none; font-variant-numeric:tabular-nums;">
+                    <div style="line-height:1.35;"><div style="font-size:14px; font-weight:600;">في الألف</div><div style="font-size:12px; color:#787c82;">أي ٠.٢٠٪ من المبيعات</div></div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:16px; background:#f6f7f8; border-radius:9px; padding:12px 14px; font-size:13px; color:#3c434a; line-height:1.6;">
+                <span style="color:#787c82;">معادلة أساس العمولة:</span><br>
+                <b>أساس العمولة = مبيعات الفرع × ٢ ÷ ١٠٠٠</b>
+              </div>
+            </div>
+            <!-- worked example -->
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:20px; display:flex; flex-direction:column; justify-content:center;">
+              <div style="font-size:13px; color:#787c82; margin-bottom:14px;">مثال — فرع الجمهورية، شهر ٣ / ٢٠٢٦</div>
+              <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+                <div style="text-align:center;"><div style="font-size:12px; color:#787c82; margin-bottom:3px;">مبيعات الفرع</div><div style="font-size:22px; font-weight:700; font-variant-numeric:tabular-nums;">{{ exSalesF }}</div></div>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c3c4c7" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                <div style="text-align:center;"><div style="font-size:12px; color:#787c82; margin-bottom:3px;">× ٢ في الألف</div><div style="font-size:15px; font-weight:600; color:#b78a00;">٠.٢٠٪</div></div>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c3c4c7" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                <div style="background:#fdf4dd; border:1px solid #f0e0a8; border-radius:10px; padding:10px 18px; text-align:center;"><div style="font-size:12px; color:#8a6100; margin-bottom:3px;">أساس العمولة القابل للتوزيع</div><div style="font-size:24px; font-weight:700; color:#6a5300; font-variant-numeric:tabular-nums;">{{ exBaseF }} <span style="font-size:14px; font-weight:500;">ج.م</span></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- distribution rule table -->
+          <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); overflow:hidden; margin-bottom:18px;">
+            <div style="padding:15px 18px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #eef0f1; flex-wrap:wrap; gap:10px;">
+              <div><div style="font-size:15px; font-weight:600;">توزيع العمولة حسب الدور</div><div style="font-size:12px; color:#787c82; margin-top:2px;">القاعدة الافتراضية المطبّقة على كل الفروع</div></div>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <sc-if value="{{ distValid }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; background:#e7f6ec; color:#0a7c2f; font-size:12.5px; font-weight:600; padding:5px 12px; border-radius:999px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"></path></svg>المجموع صحيح = {{ distSumF }}</span></sc-if>
+                <button style="{{ btnPrimary }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>إضافة دور</button>
+              </div>
+            </div>
+            <table style="width:100%; font-size:13px;">
+              <thead><tr style="background:#f2c200;">
+                <th style="text-align:right; padding:12px 18px; font-weight:700; color:#4a3d00; border-bottom:1px solid #dcb000;">الدور الوظيفي</th>
+                <th style="text-align:center; padding:12px 12px; font-weight:700; color:#4a3d00; border-bottom:1px solid #dcb000; width:150px;">النسبة</th>
+                <th style="text-align:right; padding:12px 12px; font-weight:700; color:#4a3d00; border-bottom:1px solid #dcb000;">توزيع مرئي</th>
+                <th style="text-align:center; padding:12px 18px; font-weight:700; color:#4a3d00; border-bottom:1px solid #dcb000; width:110px;">إجراءات</th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ roleDistRows }}" as="r" hint-placeholder-count="4">
+                  <tr style="{{ r.tr }}">
+                    <td style="padding:12px 18px;"><div style="font-weight:600;">{{ r.role }}</div><div style="font-size:11.5px; color:#9aa0a6;">{{ r.desc }}</div></td>
+                    <td style="padding:12px 12px; text-align:center;">
+                      <div style="display:inline-flex; align-items:center; gap:4px; border:1px solid #d5d8db; border-radius:8px; padding:4px 8px; background:#fff;"><input value="{{ r.pct }}" style="width:42px; border:none; outline:none; font-size:15px; font-weight:700; text-align:center; font-variant-numeric:tabular-nums; background:transparent;"><span style="color:#787c82; font-weight:600;">%</span></div>
+                    </td>
+                    <td style="padding:12px 12px;"><div style="background:#f0f0f1; border-radius:999px; height:8px; overflow:hidden;"><div style="{{ r.bar }}"></div></div></td>
+                    <td style="padding:12px 18px; text-align:center;">
+                      <div style="display:inline-flex; gap:6px;">
+                        <button style="width:30px; height:30px; border:1px solid #e2e4e7; background:#fff; border-radius:7px; cursor:pointer; color:#646970; display:inline-flex; align-items:center; justify-content:center;" style-hover="border-color:#2271b1; color:#2271b1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"></path></svg></button>
+                        <button style="width:30px; height:30px; border:1px solid #f3d0d1; background:#fff; border-radius:7px; cursor:pointer; color:#b32d2e; display:inline-flex; align-items:center; justify-content:center;" style-hover="background:#fdf6f6;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                </sc-for>
+              </tbody>
+              <tfoot><tr style="background:#f6f7f8; border-top:2px solid #e2e4e7;">
+                <td style="padding:13px 18px; font-weight:700;">الإجمالي</td>
+                <td style="padding:13px 12px; text-align:center; font-weight:800; color:#0a7c2f; font-size:15px;">{{ distSumF }}</td>
+                <td colspan="2" style="padding:13px 18px; color:#787c82; font-size:12.5px;">يجب أن يساوي مجموع النسب ١٠٠٪ قبل الحفظ</td>
+              </tr></tfoot>
+            </table>
+            <div style="padding:13px 18px; display:flex; gap:10px; border-top:1px solid #eef0f1;">
+              <button style="{{ btnPrimary }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8M7 3v5h8"></path></svg>حفظ القاعدة</button>
+              <button style="padding:8px 14px; background:#fff; color:#646970; border:1px solid #d5d8db; border-radius:7px; font-size:13px; cursor:pointer;">استعادة الافتراضي</button>
+            </div>
+          </div>
+
+          <!-- spreadsheet-style applied example -->
+          <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:18px;">
+            <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); overflow:hidden;">
+              <div style="padding:14px 18px; border-bottom:1px solid #eef0f1; font-size:15px; font-weight:600;">تطبيق القاعدة — كشف العمولة</div>
+              <table style="width:100%; font-size:13px;">
+                <thead>
+                  <tr style="background:#f2c200;">
+                    <th style="text-align:right; padding:12px 18px; font-weight:800; color:#4a3d00; border-left:1px solid #dcb000; font-size:15px;">العمولة</th>
+                    <th style="text-align:center; padding:12px 12px; font-weight:700; color:#4a3d00; border-left:1px solid #dcb000;">فرع الجمهورية</th>
+                    <th style="text-align:center; padding:12px 18px; font-weight:700; color:#4a3d00;">شهر ٣ / ٢٠٢٦</th>
+                  </tr>
+                  <tr style="background:#fdf4dd;">
+                    <td style="padding:9px 18px; color:#6a5300; font-size:12px; border-left:1px solid #f0e0a8;">نسبة الفرع كله من المبيعات</td>
+                    <td style="padding:9px 12px; text-align:center; color:#6a5300; font-weight:700; font-variant-numeric:tabular-nums; border-left:1px solid #f0e0a8;">{{ exSalesF }}</td>
+                    <td style="padding:9px 18px; text-align:center; color:#6a5300; font-size:12px;">النسبة</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ exRows }}" as="e" hint-placeholder-count="4">
+                    <tr style="border-bottom:1px solid #f4f5f6;">
+                      <td style="padding:11px 18px; font-weight:600; border-left:1px solid #f4f5f6;">{{ e.role }}</td>
+                      <td style="padding:11px 12px; text-align:center; border-left:1px solid #f4f5f6;"><span style="background:#eaf2fb; color:#2271b1; font-weight:600; padding:2px 9px; border-radius:999px;">{{ e.pctF }}</span></td>
+                      <td style="padding:11px 18px; text-align:center; font-weight:600; font-variant-numeric:tabular-nums;">{{ e.amountF }}</td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+                <tfoot><tr style="background:#f6f7f8; border-top:2px solid #e2e4e7;">
+                  <td style="padding:12px 18px; font-weight:700; border-left:1px solid #eef0f1;">الإجمالي</td>
+                  <td style="border-left:1px solid #eef0f1;"></td>
+                  <td style="padding:12px 18px; text-align:center; font-weight:800; color:#0a7c2f; font-variant-numeric:tabular-nums;">{{ exBaseF }}</td>
+                </tr></tfoot>
+              </table>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:18px;">
+              <!-- per-branch overrides -->
+              <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); overflow:hidden;">
+                <div style="padding:14px 18px; border-bottom:1px solid #eef0f1; display:flex; align-items:center; justify-content:space-between;"><span style="font-size:14px; font-weight:600;">نِسب مخصصة للفروع</span><span style="font-size:11.5px; color:#787c82;">تتجاوز النسبة الافتراضية</span></div>
+                <table style="width:100%; font-size:12.5px;">
+                  <tbody>
+                    <sc-for list="{{ branchRateRows }}" as="b" hint-placeholder-count="6">
+                      <tr style="{{ b.tr }}">
+                        <td style="padding:9px 18px; font-weight:600;">{{ b.name }}</td>
+                        <td style="padding:9px 12px; text-align:center; font-weight:700; font-variant-numeric:tabular-nums;">{{ b.rate }}</td>
+                        <td style="padding:9px 18px; text-align:left;"><span style="{{ b.typeStyle }}">{{ b.type }}</span></td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+              <!-- employee exceptions -->
+              <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:16px 18px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:12px;">استثناءات الموظفين</div>
+                <div style="display:flex; flex-direction:column; gap:11px;">
+                  <sc-for list="{{ empExceptions }}" as="x" hint-placeholder-count="2">
+                    <div style="display:flex; align-items:center; gap:11px;">
+                      <div style="line-height:1.35; flex:1;"><div style="font-size:13px; font-weight:600;">{{ x.name }}</div><div style="font-size:11.5px; color:#9aa0a6;">{{ x.title }}</div></div>
+                      <div style="{{ x.track }}"><div style="{{ x.knob }}"></div></div>
+                    </div>
+                  </sc-for>
+                  <div style="font-size:11.5px; color:#9aa0a6; border-top:1px solid #f0f1f2; padding-top:10px;">المفتاح الأخضر يعني أن الموظف مؤهل لاستلام العمولة</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ PLACEHOLDER (rules/attendance/settings) ============ -->
+        <sc-if value="{{ isSoon }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#fff; border:1px solid #e2e4e7; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); padding:60px 24px; text-align:center;">
+          <div style="width:66px; height:66px; border-radius:16px; background:#fdf4dd; display:inline-flex; align-items:center; justify-content:center; margin-bottom:18px;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#b78a00" stroke-width="1.8"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg></div>
+          <div style="font-size:19px; font-weight:600; margin-bottom:8px;">{{ soonTitle }}</div>
+          <div style="font-size:13.5px; color:#787c82; max-width:420px; margin:0 auto 22px;">{{ soonSub }} — هذه الصفحة ضمن نطاق التسليم الكامل للمكوّن الإضافي (خارج النطاق الأساسي الحالي).</div>
+          <button style="{{ btnPrimary }}; display:inline-flex;">تصميم هذه الصفحة</button>
+        </div>
+        </sc-if>
+
+        <div data-pages-anchor></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- CONFIRM MODAL -->
+  <sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeConfirm }}" style="position:fixed; inset:0; background:rgba(29,35,39,0.55); display:flex; align-items:center; justify-content:center; z-index:100; padding:20px;">
+    <div style="background:#fff; border-radius:14px; width:420px; max-width:100%; box-shadow:0 20px 50px rgba(0,0,0,0.3); overflow:hidden;">
+      <div style="padding:22px 22px 6px; display:flex; gap:14px;">
+        <div style="width:44px; height:44px; border-radius:11px; background:#fdf4dd; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b78a00" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0ZM12 9v4M12 17h.01"></path></svg></div>
+        <div style="line-height:1.45;"><div style="font-size:16px; font-weight:600;">تأكيد إعادة حساب الرواتب</div><div style="font-size:13px; color:#787c82; margin-top:5px;">سيتم إعادة احتساب صافي رواتب جميع الموظفين لشهر فبراير 2026 بناءً على أحدث بيانات العمولة والغياب. لا يمكن التراجع عن هذا الإجراء.</div></div>
+      </div>
+      <div style="padding:18px 22px 22px; display:flex; gap:10px; justify-content:flex-start;">
+        <button onClick="{{ closeConfirm }}" style="padding:9px 18px; background:#2271b1; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">نعم، إعادة الحساب</button>
+        <button onClick="{{ closeConfirm }}" style="padding:9px 18px; background:#fff; color:#3c434a; border:1px solid #d5d8db; border-radius:8px; font-size:13px; cursor:pointer;">إلغاء</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2271b1&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#2271b1&quot;,&quot;#1e6b4f&quot;,&quot;#8a6100&quot;,&quot;#7c3aed&quot;]},&quot;zebra&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'dashboard', empBranch: 'كل الفروع', empStatus: 'الكل', empTitle: 'الكل', confirmOpen: false };
+
+  egp(n){ return Math.round(n).toLocaleString('en-US'); }
+  egp2(n){ return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+  statusMeta(s){
+    const m = {
+      active:{label:'نشط',bg:'#e7f6ec',fg:'#0a7c2f',dot:'#12a150'},
+      inactive:{label:'غير نشط',bg:'#f1f2f3',fg:'#646970',dot:'#9aa0a6'},
+      paid:{label:'تم الدفع',bg:'#e7f6ec',fg:'#0a7c2f',dot:'#12a150'},
+      pending:{label:'قيد الانتظار',bg:'#fdf4dd',fg:'#8a6100',dot:'#e0a800'},
+      hold:{label:'موقوف',bg:'#fbe9ea',fg:'#b32d2e',dot:'#d63638'},
+    };
+    return m[s] || m.inactive;
+  }
+  pill(s){
+    const c = this.statusMeta(s);
+    return {
+      style:{display:'inline-flex',alignItems:'center',gap:'6px',padding:'3px 10px',borderRadius:'999px',fontSize:'12px',fontWeight:600,background:c.bg,color:c.fg,whiteSpace:'nowrap'},
+      dot:{width:'7px',height:'7px',borderRadius:'50%',background:c.dot,display:'inline-block'},
+      label:c.label
+    };
+  }
+  ach(pct){
+    let bg,fg;
+    if(pct>=100){bg='#e7f6ec';fg='#0a7c2f';}
+    else if(pct>=90){bg='#fdf4dd';fg='#8a6100';}
+    else {bg='#fbe9ea';fg='#b32d2e';}
+    return {display:'inline-block',padding:'2px 9px',borderRadius:'999px',fontSize:'12px',fontWeight:600,background:bg,color:fg,fontVariantNumeric:'tabular-nums'};
+  }
+
+  branchesRaw(){
+    return [
+      {name:'فرع مدينة نصر', city:'القاهرة', code:'BR-01', manager:'أحمد سليم', phone:'02 2401 8890', emp:7, sales:1584291, target:1500000, comm:3168.58, pay:58400, status:'active'},
+      {name:'فرع المهندسين', city:'الجيزة', code:'BR-02', manager:'محمد فؤاد', phone:'02 3760 1122', emp:6, sales:1342880, target:1400000, comm:2685.76, pay:51200, status:'active'},
+      {name:'فرع سموحة', city:'الإسكندرية', code:'BR-03', manager:'كريم عبد الله', phone:'03 4270 5540', emp:8, sales:1876540, target:1700000, comm:3753.08, pay:64900, status:'active'},
+      {name:'فرع المنصورة', city:'الدقهلية', code:'BR-04', manager:'هشام رأفت', phone:'050 231 7788', emp:5, sales:987230, target:1100000, comm:1974.46, pay:41300, status:'active'},
+      {name:'فرع طنطا', city:'الغربية', code:'BR-05', manager:'وليد صابر', phone:'040 331 2299', emp:6, sales:1120660, target:1000000, comm:2241.32, pay:47800, status:'active'},
+      {name:'فرع أسيوط', city:'أسيوط', code:'BR-06', manager:'ياسر مصطفى', phone:'088 234 6611', emp:5, sales:764120, target:900000, comm:1528.24, pay:38600, status:'inactive'},
+    ];
+  }
+  employeesRaw(){
+    return [
+      {name:'أحمد سليم', code:'EMP-1001', branch:'فرع مدينة نصر', title:'مدير الفرع', dept:'الإدارة', phone:'0100 123 4567', hire:'2019-03-12', salary:12000, elig:true, status:'active'},
+      {name:'منى حسن', code:'EMP-1002', branch:'فرع مدينة نصر', title:'محاسب الفرع', dept:'المالية', phone:'0100 234 5678', hire:'2020-06-01', salary:8000, elig:true, status:'active'},
+      {name:'محمود عادل', code:'EMP-1003', branch:'فرع مدينة نصر', title:'موظف مبيعات', dept:'المبيعات', phone:'0100 345 6789', hire:'2021-09-20', salary:5500, elig:true, status:'active'},
+      {name:'سمير فتحي', code:'EMP-1004', branch:'فرع مدينة نصر', title:'عامل توصيل', dept:'التشغيل', phone:'0100 456 7890', hire:'2022-01-15', salary:4200, elig:true, status:'active'},
+      {name:'محمد فؤاد', code:'EMP-2001', branch:'فرع المهندسين', title:'مدير الفرع', dept:'الإدارة', phone:'0101 123 4567', hire:'2018-11-05', salary:12000, elig:true, status:'active'},
+      {name:'داليا رمزي', code:'EMP-2002', branch:'فرع المهندسين', title:'محاسب الفرع', dept:'المالية', phone:'0101 234 5678', hire:'2020-02-18', salary:7800, elig:true, status:'active'},
+      {name:'كريم عبد الله', code:'EMP-3001', branch:'فرع سموحة', title:'مدير الفرع', dept:'الإدارة', phone:'0102 123 4567', hire:'2017-07-30', salary:12500, elig:true, status:'active'},
+      {name:'نورا شريف', code:'EMP-3002', branch:'فرع سموحة', title:'موظف مبيعات', dept:'المبيعات', phone:'0102 234 5678', hire:'2021-04-11', salary:5200, elig:true, status:'active'},
+      {name:'هشام رأفت', code:'EMP-4001', branch:'فرع المنصورة', title:'مدير الفرع', dept:'الإدارة', phone:'0103 123 4567', hire:'2019-10-22', salary:11500, elig:true, status:'active'},
+      {name:'عمرو زكي', code:'EMP-4002', branch:'فرع المنصورة', title:'عامل تحضير', dept:'التشغيل', phone:'0103 234 5678', hire:'2022-08-03', salary:4000, elig:false, status:'active'},
+      {name:'وليد صابر', code:'EMP-5001', branch:'فرع طنطا', title:'مدير الفرع', dept:'الإدارة', phone:'0104 123 4567', hire:'2018-05-14', salary:11000, elig:true, status:'active'},
+      {name:'ياسر مصطفى', code:'EMP-6001', branch:'فرع أسيوط', title:'مدير الفرع', dept:'الإدارة', phone:'0106 123 4567', hire:'2016-12-01', salary:10500, elig:true, status:'inactive'},
+    ];
+  }
+  payrollRaw(){
+    return [
+      {name:'أحمد سليم', branch:'مدينة نصر', title:'مدير الفرع', basic:12000, comm:1901.15, absence:0, bonus:500, other:0, status:'paid'},
+      {name:'منى حسن', branch:'مدينة نصر', title:'محاسب الفرع', basic:8000, comm:586.10, absence:266.67, bonus:0, other:0, status:'paid'},
+      {name:'محمود عادل', branch:'مدينة نصر', title:'موظف مبيعات', basic:5500, comm:280.00, absence:0, bonus:200, other:0, status:'paid'},
+      {name:'سمير فتحي', branch:'مدينة نصر', title:'عامل توصيل', basic:4200, comm:316.86, absence:140.00, bonus:0, other:50, status:'pending'},
+      {name:'محمد فؤاد', branch:'المهندسين', title:'مدير الفرع', basic:12000, comm:1611.46, absence:0, bonus:500, other:0, status:'paid'},
+      {name:'داليا رمزي', branch:'المهندسين', title:'محاسب الفرع', basic:7800, comm:537.15, absence:0, bonus:0, other:100, status:'pending'},
+      {name:'كريم عبد الله', branch:'سموحة', title:'مدير الفرع', basic:12500, comm:2251.85, absence:0, bonus:600, other:0, status:'paid'},
+      {name:'نورا شريف', branch:'سموحة', title:'موظف مبيعات', basic:5200, comm:375.31, absence:173.33, bonus:0, other:0, status:'hold'},
+      {name:'هشام رأفت', branch:'المنصورة', title:'مدير الفرع', basic:11500, comm:1184.68, absence:383.33, bonus:0, other:0, status:'pending'},
+      {name:'عمرو زكي', branch:'المنصورة', title:'عامل تحضير', basic:4000, comm:0, absence:0, bonus:0, other:0, status:'pending'},
+      {name:'وليد صابر', branch:'طنطا', title:'مدير الفرع', basic:11000, comm:1344.79, absence:0, bonus:400, other:0, status:'paid'},
+      {name:'ياسر مصطفى', branch:'أسيوط', title:'مدير الفرع', basic:10500, comm:916.94, absence:0, bonus:0, other:0, status:'hold'},
+    ];
+  }
+
+  renderVals(){
+    const page = this.state.page;
+    const accent = this.props.accent ?? '#2271b1';
+    const zebra = this.props.zebra ?? true;
+
+    // ---- nav ----
+    const items = [
+      ['dashboard','لوحة المعلومات','M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z','لوحة المعلومات','نظرة عامة على الأداء الشهري','M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z'],
+      ['branches','الفروع','M4 21V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v16M12 9h7a1 1 0 0 1 1 1v11M8 8h.01M8 12h.01M8 16h.01'],
+      ['employees','الموظفين','M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75'],
+      ['sales','مبيعات الفروع','M3 3v18h18M7 14l4-4 3 3 5-6'],
+      ['rules','قواعد العمولة','M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6'],
+      ['attendance','الحضور والغياب','M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM9 16l2 2 4-4'],
+      ['payroll','الرواتب','M19 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2ZM3 10h18M7 15h4'],
+      ['reports','التقارير','M12 20V10M18 20V4M6 20v-4'],
+      ['erd','مخطط البيانات','M5 7h4v4H5zM15 3h4v4h-4zM15 17h4v4h-4zM9 9h6M12 11v6'],
+      ['settings','الإعدادات','M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z'],
+    ];
+    const baseNav = {display:'flex',alignItems:'center',gap:'11px',padding:'9px 16px',textDecoration:'none',fontSize:'13.5px',cursor:'pointer'};
+    const nav = items.map(it=>({
+      key:it[0], label:it[1], iconPath:it[2], active: page===it[0],
+      onClick: ()=>this.setState({page:it[0]}),
+      style: page===it[0]
+        ? {...baseNav, color:'#fff', background:accent, borderRight:'3px solid #72aee6', fontWeight:600}
+        : {...baseNav, color:'#c3c4c7', background:'transparent', borderRight:'3px solid transparent'}
+    }));
+
+    // ---- page meta ----
+    const meta = {
+      dashboard:['لوحة المعلومات','نظرة عامة على أداء الفروع لشهر فبراير 2026','M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z'],
+      branches:['الفروع','إدارة الفروع الستة والأداء المالي لكل فرع','M4 21V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v16M12 9h7a1 1 0 0 1 1 1v11'],
+      employees:['الموظفين','قائمة الموظفين والبيانات الوظيفية','M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z'],
+      sales:['مبيعات الفروع والعمولات','إدخال المبيعات الشهرية وتوزيع العمولة تلقائيًا','M3 3v18h18M7 14l4-4 3 3 5-6'],
+      payroll:['الرواتب','إنشاء ومراجعة كشف رواتب الموظفين','M19 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2ZM3 10h18'],
+      reports:['التقارير','تقارير الأداء والرسوم البيانية','M12 20V10M18 20V4M6 20v-4'],
+      erd:['مخطط قاعدة البيانات','العلاقات بين جداول النظام لتسليم المطوّر','M5 7h4v4H5zM15 3h4v4h-4zM15 17h4v4h-4zM9 9h6M12 11v6'],
+      rules:['قواعد العمولة','ضبط نسب توزيع العمولة','M4 21v-7M4 10V3M12 21v-9'],
+      attendance:['الحضور والغياب','تسجيل الغياب والتأخير والخصومات','M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z'],
+      settings:['الإعدادات','إعدادات النظام العامة','M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'],
+    };
+    const pm = meta[page] || meta.dashboard;
+
+    // ---- kpis ----
+    const iconWrap = (bg,fg)=>({width:'36px',height:'36px',borderRadius:'9px',background:bg,color:fg,display:'flex',alignItems:'center',justifyContent:'center'});
+    const deltaUp = {fontSize:'11.5px',fontWeight:600,color:'#0a7c2f',background:'#e7f6ec',padding:'2px 7px',borderRadius:'999px'};
+    const deltaDown = {fontSize:'11.5px',fontWeight:600,color:'#b32d2e',background:'#fbe9ea',padding:'2px 7px',borderRadius:'999px'};
+    const deltaFlat = {fontSize:'11.5px',fontWeight:600,color:'#646970',background:'#f1f2f3',padding:'2px 7px',borderRadius:'999px'};
+    const kpis = [
+      {label:'إجمالي الفروع', value:'6', icon:'M4 21V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v16M12 9h7a1 1 0 0 1 1 1v11', iconWrap:iconWrap('#eaf2fb','#2271b1'), delta:'5 نشط', deltaStyle:deltaFlat},
+      {label:'الموظفون النشطون', value:'35', icon:'M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z', iconWrap:iconWrap('#f3edfb','#7c3aed'), delta:'من 37', deltaStyle:deltaFlat},
+      {label:'مبيعات الشهر (ج.م)', value:'7,675,721', icon:'M3 3v18h18M7 14l4-4 3 3 5-6', iconWrap:iconWrap('#fdf4dd','#b78a00'), delta:'▲ 8.4%', deltaStyle:deltaUp},
+      {label:'إجمالي العمولات (ج.م)', value:'15,351.44', icon:'M4 21v-7M12 21v-9M20 21v-5M1 14h6M9 8h6M17 16h6', iconWrap:iconWrap('#eaf2fb','#2271b1'), delta:'▲ 3.7%', deltaStyle:deltaUp},
+      {label:'إجمالي الرواتب (ج.م)', value:'302,200', icon:'M19 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2ZM3 10h18', iconWrap:iconWrap('#e7f6ec','#0a7c2f'), delta:'ثابت', deltaStyle:deltaFlat},
+      {label:'خصومات الغياب (ج.م)', value:'963.33', icon:'M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0ZM12 9v4', iconWrap:iconWrap('#fbe9ea','#b32d2e'), delta:'6 حالات', deltaStyle:deltaDown},
+    ];
+
+    // ---- recent sales ----
+    const branches = this.branchesRaw();
+    const recentSales = branches.filter(b=>b.status==='active').slice(0,5).map(b=>{
+      const pct = Math.round(b.sales/b.target*100);
+      return { branch:b.name, month:'فبراير 2026', salesF:this.egp(b.sales), pct:pct+'%', achStyle:this.ach(pct), pill:this.pill(pct>=90?'active':'pending') };
+    });
+
+    // ---- alerts ----
+    const aMeta = {
+      error:{wrapBg:'#fdf6f6',bar:'#d63638',iconBg:'#fbe9ea',fg:'#d63638',icon:'M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0ZM12 9v4M12 17h.01'},
+      warning:{wrapBg:'#fffdf5',bar:'#e0a800',iconBg:'#fdf4dd',fg:'#b78a00',icon:'M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z'},
+      info:{wrapBg:'#f6faff',bar:'#2271b1',iconBg:'#eaf2fb',fg:'#2271b1',icon:'M12 16v-4M12 8h.01M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z'},
+    };
+    const alertsRaw = [
+      {type:'error', title:'توزيع العمولة في فرع المنصورة لا يساوي 100%', desc:'المجموع الحالي 90% — يرجى تعديل القاعدة'},
+      {type:'warning', title:'فرع أسيوط بدون إدخال مبيعات لفبراير', desc:'لم يتم تسجيل مبيعات هذا الشهر'},
+      {type:'warning', title:'يوجد موظفان بدون فرع محدد', desc:'يرجى ربط الموظفين بالفروع'},
+      {type:'info', title:'لم يتم إنشاء كشف رواتب مارس بعد', desc:'كشف فبراير مكتمل بنسبة 100%'},
+    ];
+    const alerts = alertsRaw.map(a=>{
+      const m = aMeta[a.type];
+      return {
+        title:a.title, desc:a.desc, icon:m.icon,
+        wrap:{display:'flex',gap:'11px',padding:'11px 12px',borderRadius:'9px',background:m.wrapBg,borderRight:'3px solid '+m.bar},
+        iconWrap:{width:'26px',height:'26px',borderRadius:'7px',background:m.iconBg,color:m.fg,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}
+      };
+    });
+
+    // ---- commission mini ----
+    const commMax = 3753.08;
+    const commissionMini = branches.filter(b=>b.status==='active').slice(0,4).map(b=>({
+      name:b.name, valueF:this.egp2(b.comm),
+      barStyle:{height:'7px',width:Math.round(b.comm/commMax*100)+'%',background:accent,borderRadius:'999px'}
+    }));
+
+    // ---- branches table ----
+    const rowBg = (i)=> (zebra && i%2===1) ? '#fafbfc' : '#fff';
+    const branchesRows = branches.map((b,i)=>{
+      const net = b.sales - b.comm - b.pay;
+      return {
+        name:b.name, code:b.code, city:b.city, manager:b.manager, emp:b.emp,
+        salesF:this.egp(b.sales), commF:this.egp2(b.comm), payF:this.egp(b.pay), netF:this.egp(net),
+        pill:this.pill(b.status),
+        tr:{borderBottom:'1px solid #f0f1f2',background:rowBg(i)},
+        avatar:{width:'30px',height:'30px',borderRadius:'8px',background:'#eaf2fb',color:'#2271b1',display:'inline-flex',alignItems:'center',justifyContent:'center',fontSize:'12px',fontWeight:700,flexShrink:0}
+      };
+    });
+    const bt = branches.reduce((a,b)=>({sales:a.sales+b.sales,comm:a.comm+b.comm,pay:a.pay+b.pay,emp:a.emp+b.emp,net:a.net+(b.sales-b.comm-b.pay)}),{sales:0,comm:0,pay:0,emp:0,net:0});
+    const branchTotals = {emp:bt.emp, salesF:this.egp(bt.sales), commF:this.egp2(bt.comm), payF:this.egp(bt.pay), netF:this.egp(bt.net)};
+
+    // ---- employees table ----
+    const employees = this.employeesRaw();
+    const empBranch=this.state.empBranch, empStatus=this.state.empStatus, empTitle=this.state.empTitle;
+    const employeesRows = employees
+      .filter(e=> empBranch==='كل الفروع' || e.branch===empBranch)
+      .filter(e=> empStatus==='الكل' || (empStatus==='نشط'?e.status==='active':e.status==='inactive'))
+      .filter(e=> empTitle==='الكل' || e.title===empTitle)
+      .map((e,i)=>({
+        name:e.name, code:e.code, branch:e.branch, title:e.title, dept:e.dept, phone:e.phone, hire:e.hire,
+        salaryF:this.egp(e.salary),
+        elig: e.elig ? {label:'مؤهل',style:{fontSize:'12px',fontWeight:600,color:'#0a7c2f'}} : {label:'غير مؤهل',style:{fontSize:'12px',fontWeight:600,color:'#9aa0a6'}},
+        pill:this.pill(e.status),
+        tr:{borderBottom:'1px solid #f0f1f2',background:rowBg(i)},
+        avatar:{width:'30px',height:'30px',borderRadius:'50%',background:'linear-gradient(135deg,#7c3aed,#2271b1)',color:'#fff',display:'inline-flex',alignItems:'center',justifyContent:'center',fontSize:'12px',fontWeight:700,flexShrink:0}
+      }));
+    const branchOptions=['كل الفروع',...branches.map(b=>b.name)];
+    const titleOptions=['الكل','مدير الفرع','محاسب الفرع','موظف مبيعات','عامل توصيل','عامل تحضير'];
+    const setEmpBranch=(e)=>this.setState({empBranch:e.target.value});
+    const setEmpStatus=(e)=>this.setState({empStatus:e.target.value});
+    const setEmpTitle=(e)=>this.setState({empTitle:e.target.value});
+
+    // ---- commission distribution (sales page) ----
+    const distRaw = [
+      {role:'مدير الفرع', emp:'أحمد سليم', pct:60, absence:0},
+      {role:'محاسب الفرع', emp:'منى حسن', pct:20, absence:47.62},
+      {role:'عامل التوصيل', emp:'سمير فتحي', pct:10, absence:0},
+      {role:'عامل التحضير', emp:'محمود عادل', pct:10, absence:31.71},
+    ];
+    const commBase = 3168.58;
+    const distRows = distRaw.map((d,i)=>{
+      const amount = commBase*d.pct/100;
+      const final = amount - d.absence;
+      return {
+        role:d.role, emp:d.emp, pct:d.pct+'%',
+        amountF:this.egp2(amount), absenceF: d.absence?('- '+this.egp2(d.absence)):'—',
+        finalF:this.egp2(final),
+        tr:{borderBottom:'1px solid #f0f1f2',background:rowBg(i)},
+        absenceStyle:{color: d.absence?'#b32d2e':'#9aa0a6', fontVariantNumeric:'tabular-nums'}
+      };
+    });
+    const distTotal = {amountF:this.egp2(commBase), absenceF:'- '+this.egp2(distRaw.reduce((s,d)=>s+d.absence,0)), finalF:this.egp2(commBase-distRaw.reduce((s,d)=>s+d.absence,0))};
+
+    // ---- payroll table ----
+    const payroll = this.payrollRaw();
+    const payrollRows = payroll.map((p,i)=>{
+      const net = p.basic + p.comm + p.bonus - p.absence - p.other;
+      return {
+        name:p.name, branch:p.branch, title:p.title,
+        basicF:this.egp(p.basic), commF:this.egp2(p.comm),
+        absenceF: p.absence?('- '+this.egp2(p.absence)):'—',
+        bonusF: p.bonus?('+ '+this.egp(p.bonus)):'—',
+        otherF: p.other?('- '+this.egp(p.other)):'—',
+        netF:this.egp2(net),
+        pill:this.pill(p.status),
+        tr:{borderBottom:'1px solid #f0f1f2',background:rowBg(i)},
+        dedStyle:{color:'#b32d2e',fontVariantNumeric:'tabular-nums'},
+        addStyle:{color:'#0a7c2f',fontVariantNumeric:'tabular-nums'}
+      };
+    });
+    const pt = payroll.reduce((a,p)=>({basic:a.basic+p.basic,comm:a.comm+p.comm,absence:a.absence+p.absence,bonus:a.bonus+p.bonus,other:a.other+p.other,net:a.net+(p.basic+p.comm+p.bonus-p.absence-p.other)}),{basic:0,comm:0,absence:0,bonus:0,other:0,net:0});
+    const payrollTotals = {basicF:this.egp(pt.basic),commF:this.egp2(pt.comm),absenceF:'- '+this.egp2(pt.absence),bonusF:'+ '+this.egp(pt.bonus),otherF:'- '+this.egp(pt.other),netF:this.egp2(pt.net)};
+
+    // ---- charts (reports) ----
+    const salesMax = Math.max(...branches.map(b=>b.sales));
+    const shortName = n=>n.replace('فرع ','');
+    const salesBars = branches.map(b=>({label:shortName(b.name), valueF:this.egp(b.sales), bar:{height:Math.round(b.sales/salesMax*150)+'px',width:'100%',background:'linear-gradient(180deg,#2271b1,#135e96)',borderRadius:'6px 6px 0 0'}}));
+    const payMax = Math.max(...branches.map(b=>b.pay));
+    const payBars = branches.map(b=>({label:shortName(b.name), valueF:this.egp(b.pay), bar:{height:Math.round(b.pay/payMax*150)+'px',width:'100%',background:'linear-gradient(180deg,#12a150,#0a7c2f)',borderRadius:'6px 6px 0 0'}}));
+    const absMax = 3;
+    const absData = [['مدينة نصر',2],['المهندسين',1],['سموحة',1],['المنصورة',3],['طنطا',0],['أسيوط',1]];
+    const absBars = absData.map(a=>({label:a[0], value:a[1], bar:{height:'20px',width:(a[1]?Math.round(a[1]/absMax*100):3)+'%',background:'#e0a800',borderRadius:'999px'}}));
+
+    // commission trend line
+    const trend = [['أكتوبر',12400],['نوفمبر',13100],['ديسمبر',14050],['يناير',14800],['فبراير',15351],['مارس',15900]];
+    const tw=540, th=160, pad=14, tmin=12000, tmax=16400;
+    const tpts = trend.map((t,i)=>{
+      const x = pad + i*((tw-2*pad)/(trend.length-1));
+      const y = th - pad - ((t[1]-tmin)/(tmax-tmin))*(th-2*pad);
+      return {x:+x.toFixed(1), y:+y.toFixed(1), label:t[0], valueF:this.egp(t[1]),
+        dot:{}, lx:x, ly:y};
+    });
+    const trendLine = tpts.map(p=>p.x+','+p.y).join(' ');
+    const trendArea = tpts[0].x+','+(th-pad)+' '+trendLine+' '+tpts[tpts.length-1].x+','+(th-pad);
+    const trendDots = tpts.map(p=>({cx:p.x, cy:p.y, label:p.label, valueF:p.valueF, lx:p.x}));
+
+    // reports kpi cards
+    const repKpis = [
+      {label:'أعلى فرع مبيعًا', value:'سموحة', sub:'1,876,540 ج.م', color:'#2271b1', bg:'#eaf2fb', icon:'M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.6 5.7 21l2.3-7.1-6-4.5h7.6z'},
+      {label:'أعلى عمولة (فرع)', value:'سموحة', sub:'3,753.08 ج.م', color:'#7c3aed', bg:'#f3edfb', icon:'M4 21v-7M12 21v-9M20 21v-5M1 14h6M9 8h6M17 16h6'},
+      {label:'أعلى تكلفة موظفين', value:'سموحة', sub:'64,900 ج.م', color:'#0a7c2f', bg:'#e7f6ec', icon:'M19 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2ZM3 10h18'},
+      {label:'أعلى غياب (فرع)', value:'المنصورة', sub:'3 أيام', color:'#b32d2e', bg:'#fbe9ea', icon:'M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0ZM12 9v4'},
+    ];
+
+    // ---- commission rules ----
+    const roleDist = [
+      {role:'مدير الفرع', pct:60, desc:'مسؤول عن إدارة الفرع بالكامل'},
+      {role:'محاسب الفرع', pct:20, desc:'المسؤول المالي للفرع'},
+      {role:'عامل التوصيل', pct:10, desc:'يُقسّم بالتساوي على العمال'},
+      {role:'عامل التجهيز', pct:10, desc:'يُقسّم بالتساوي على العمال'},
+    ];
+    const distSum = roleDist.reduce((s,r)=>s+r.pct,0);
+    const distValid = distSum===100;
+    const roleDistRows = roleDist.map((r,i)=>({
+      role:r.role, pct:r.pct, pctF:r.pct+'%', desc:r.desc,
+      tr:{borderBottom:'1px solid #f0f1f2',background:rowBg(i)},
+      bar:{height:'8px',width:r.pct+'%',background:accent,borderRadius:'999px'}
+    }));
+    // spreadsheet-style example (فرع الجمهورية)
+    const exSales = 971181, exRate = 0.002;
+    const exBase = exSales*exRate;
+    const exRows = roleDist.map(r=>({role:r.role, pctF:r.pct+'%', amountF:this.egp2(exBase*r.pct/100)}));
+    // per-branch overrides
+    const brRate = [
+      {name:'فرع مدينة نصر', rate:'0.20%', type:'افتراضي'},
+      {name:'فرع المهندسين', rate:'0.20%', type:'افتراضي'},
+      {name:'فرع سموحة', rate:'0.25%', type:'مخصص'},
+      {name:'فرع المنصورة', rate:'0.20%', type:'افتراضي'},
+      {name:'فرع طنطا', rate:'0.20%', type:'افتراضي'},
+      {name:'فرع أسيوط', rate:'0.15%', type:'مخصص'},
+    ];
+    const branchRateRows = brRate.map((b,i)=>({
+      name:b.name, rate:b.rate, type:b.type,
+      typeStyle: b.type==='مخصص'
+        ? {display:'inline-block',padding:'2px 9px',borderRadius:'999px',fontSize:'12px',fontWeight:600,background:'#eaf2fb',color:'#2271b1'}
+        : {display:'inline-block',padding:'2px 9px',borderRadius:'999px',fontSize:'12px',fontWeight:600,background:'#f1f2f3',color:'#646970'},
+      tr:{borderBottom:'1px solid #f0f1f2',background:rowBg(i)}
+    }));
+    const empExceptionsRaw = [
+      {name:'عمرو زكي', title:'عامل تحضير — فرع المنصورة', enabled:false},
+      {name:'سمير فتحي', title:'عامل توصيل — فرع مدينة نصر', enabled:true},
+    ];
+    const empExceptions = empExceptionsRaw.map(x=>({
+      name:x.name, title:x.title,
+      track:{width:'40px',height:'22px',borderRadius:'999px',position:'relative',cursor:'pointer',background: x.enabled?'#12a150':'#c3c4c7',flexShrink:0},
+      knob:{position:'absolute',top:'2px',width:'18px',height:'18px',background:'#fff',borderRadius:'50%',left: x.enabled?'20px':'2px'}
+    }));
+
+    return {
+      nav,
+      isDashboard: page==='dashboard', isBranches: page==='branches', isEmployees: page==='employees',
+      isSales: page==='sales', isPayroll: page==='payroll', isReports: page==='reports', isErd: page==='erd',
+      isRules: page==='rules',
+      isSoon: (page==='attendance'||page==='settings'), soonTitle: pm[0], soonSub: pm[1],
+      roleDistRows, distSumF: distSum+'%', distValid, exSalesF:this.egp2(exSales), exBaseF:this.egp2(exBase), exRows, branchRateRows, empExceptions,
+      pageTitle: pm[0], pageSub: pm[1], pageIcon: pm[2],
+      btnPrimary: {display:'inline-flex',alignItems:'center',gap:'6px',padding:'8px 14px',background:accent,color:'#fff',border:'none',borderRadius:'7px',fontSize:'13px',fontWeight:600,cursor:'pointer'},
+      goSales: ()=>this.setState({page:'sales'}),
+      confirmOpen: this.state.confirmOpen,
+      openConfirm: ()=>this.setState({confirmOpen:true}),
+      closeConfirm: ()=>this.setState({confirmOpen:false}),
+      kpis, recentSales, alerts, commissionMini,
+      branchesRows, branchTotals,
+      employeesRows, branchOptions, titleOptions, empBranch, empStatus, empTitle, setEmpBranch, setEmpStatus, setEmpTitle, empCount: employeesRows.length,
+      distRows, distTotal, commBaseF:this.egp2(commBase),
+      payrollRows, payrollTotals,
+      salesBars, payBars, absBars, trendLine, trendArea, trendDots, repKpis,
+    };
+  }
+}
+</script>
+</body>
+</html>

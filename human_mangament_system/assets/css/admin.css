@@ -1,0 +1,1317 @@
+/* Core Stylesheet for Branch HR & Commission Manager (English LTR) */
+
+.swvt-hr-erp-shell {
+    --bg-primary: #f0f0f1;
+    --bg-surface: #ffffff;
+    --bg-hover: #f6f7f7;
+    --border-color: #dcdcde;
+    --text-primary: #1d2327;
+    --text-secondary: #646970;
+    --primary-color: rgb(0, 83, 226);
+    --primary-hover: rgb(0, 70, 195);
+    --primary-rgb: 0, 83, 226;
+    --accent-color: #b78a00;
+    --accent-bg: #fdf4dd;
+    
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Dark Mode color scheme overrides */
+.swvt-hr-erp-shell.swvt-hr-dark {
+    --bg-primary: #121212;
+    --bg-surface: #1e1e1e;
+    --bg-hover: #2d2d2d;
+    --border-color: #333333;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --primary-color: rgb(0, 83, 226);
+    --primary-hover: rgb(0, 70, 195);
+    --accent-color: #ffd54f;
+    --accent-bg: #332b00;
+}
+
+/* Override rules applying variables to layout components */
+.swvt-hr-erp-shell .swvt-hr-card,
+.swvt-hr-erp-shell .swvt-hr-card-padded,
+.swvt-hr-erp-shell .swvt-hr-dash-card,
+.swvt-hr-erp-shell .swvt-hr-dash-widget-card,
+.swvt-hr-erp-shell .swvt-hr-quick-actions-bar,
+.swvt-hr-erp-shell .swvt-hr-card-padded,
+.swvt-hr-erp-shell .swvt-hr-notif-card,
+.swvt-hr-erp-shell .swvt-hr-search-bar {
+    background: var(--bg-surface) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+.swvt-hr-erp-shell .swvt-hr-card-header,
+.swvt-hr-erp-shell .swvt-hr-dash-card-header,
+.swvt-hr-erp-shell .swvt-hr-profile-tabs,
+.swvt-hr-erp-shell .swvt-hr-sales-tabs {
+    background: var(--bg-hover) !important;
+    border-bottom-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+.swvt-hr-erp-shell .swvt-hr-input,
+.swvt-hr-erp-shell .swvt-hr-select,
+.swvt-hr-erp-shell .swvt-hr-textarea {
+    background: var(--bg-surface) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.swvt-hr-erp-shell .swvt-hr-table td {
+    border-bottom-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.swvt-hr-erp-shell .swvt-hr-table tr.zebra {
+    background: var(--bg-hover) !important;
+}
+
+.swvt-hr-erp-shell .swvt-hr-btn {
+    background: var(--bg-surface) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+.swvt-hr-erp-shell .swvt-hr-btn-primary {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+.swvt-hr-wrap {
+    font-family: 'Rubik', system-ui, -apple-system, sans-serif;
+    color: var(--text-primary);
+    margin: 20px 20px 0 0;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+}
+
+.swvt-hr-wrap * {
+    box-sizing: border-box;
+}
+
+/* Typography & Global overrides inside our wrap */
+.swvt-hr-wrap h1, .swvt-hr-wrap h2, .swvt-hr-wrap h3, .swvt-hr-wrap h4 {
+    font-family: 'Rubik', sans-serif;
+    color: #1d2327;
+    margin: 0;
+}
+
+.swvt-hr-wrap select, 
+.swvt-hr-wrap input, 
+.swvt-hr-wrap button, 
+.swvt-hr-wrap textarea {
+    font-family: 'Rubik', sans-serif;
+}
+
+.swvt-hr-wrap,
+.swvt-hr-wrap table,
+.swvt-hr-wrap th,
+.swvt-hr-wrap td,
+.swvt-hr-wrap input,
+.swvt-hr-wrap select,
+.swvt-hr-wrap button,
+.swvt-hr-wrap textarea {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Custom Scrollbars */
+.swvt-hr-wrap ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+}
+.swvt-hr-wrap ::-webkit-scrollbar-thumb {
+    background: #c3c4c7;
+    border-radius: 6px;
+    border: 2px solid #f0f0f1;
+}
+.swvt-hr-wrap ::-webkit-scrollbar-track {
+    background: #f0f0f1;
+}
+
+/* Grid Layouts */
+.swvt-hr-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+@media (max-width: 1200px) {
+    .swvt-hr-grid-6 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .swvt-hr-grid-6 {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.swvt-hr-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.swvt-hr-grid-dashboard {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 18px;
+}
+
+.swvt-hr-grid-rules {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 18px;
+}
+
+.swvt-hr-grid-rules-bottom {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 18px;
+}
+
+@media (max-width: 992px) {
+    .swvt-hr-grid-2, .swvt-hr-grid-dashboard, .swvt-hr-grid-rules, .swvt-hr-grid-rules-bottom {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Cards */
+.swvt-hr-card {
+    background: #fff;
+    border: 1px solid #e2e4e7;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+.swvt-hr-card-padded {
+    background: #fff;
+    border: 1px solid #e2e4e7;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    padding: 20px;
+    margin-bottom: 18px;
+}
+
+.swvt-hr-card-header {
+    padding: 15px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eef0f1;
+}
+
+.swvt-hr-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Buttons */
+.swvt-hr-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 35px !important;
+    padding: 0 14px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #d5d8db;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #fff;
+    color: #3c434a;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.swvt-hr-btn:hover,
+.swvt-hr-btn:focus,
+.swvt-hr-btn:active,
+.swvt-hr-btn:visited {
+    text-decoration: none;
+}
+
+.swvt-hr-btn-primary {
+    background: var(--primary-color) !important;
+    color: #fff !important;
+    border: none !important;
+    height: 40px !important;
+}
+.swvt-hr-btn-primary:hover {
+    background: var(--primary-hover) !important;
+}
+
+.swvt-hr-btn-secondary {
+    background: #fff;
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+.swvt-hr-btn-secondary:hover {
+    background: #f6faff;
+}
+
+.swvt-hr-btn-success {
+    background: #fff;
+    color: #0a7c2f;
+    border-color: #cce8d4;
+}
+.swvt-hr-btn-success:hover {
+    background: #f6fbf7;
+}
+
+.swvt-hr-btn-danger {
+    background: #fff;
+    color: #b32d2e;
+    border-color: #f3d0d1;
+}
+.swvt-hr-btn-danger:hover {
+    background: #fdf6f6;
+}
+
+/* Inputs & Form Fields */
+.swvt-hr-field-group {
+    margin-bottom: 14px;
+}
+
+.swvt-hr-label {
+    display: block;
+    font-size: 12.5px;
+    color: #646970;
+    margin-bottom: 6px;
+}
+
+.swvt-hr-input, .swvt-hr-select {
+    width: 100%;
+    padding: 9px 11px;
+    border: 1px solid #d5d8db;
+    border-radius: 8px;
+    font-size: 13.5px;
+    background: #fff;
+    color: #1d2327;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.swvt-hr-input:focus, .swvt-hr-select:focus {
+    border-color: #2271b1;
+}
+
+/* Tables styling (English LTR) */
+.swvt-hr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    text-align: left;
+}
+
+.swvt-hr-wrap tr th {
+    padding: 12px 18px;
+    font-weight: 600;
+    color: #ffffff !important;
+    background: #0053e2;
+    border-bottom: 1px solid #0048c4;
+}
+
+.swvt-hr-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid #f0f1f2;
+    vertical-align: middle;
+}
+
+.swvt-hr-table tr.zebra {
+    background: #fafbfc;
+}
+
+.swvt-hr-table-footer {
+    background: #f6f7f8;
+    border-top: 2px solid #e2e4e7;
+    font-weight: 700;
+}
+
+.swvt-hr-table-footer td {
+    padding: 13px 18px;
+}
+
+/* Status Pills */
+.swvt-hr-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.swvt-hr-pill-active, .swvt-hr-pill-paid {
+    background: #e7f6ec;
+    color: #0a7c2f;
+}
+.swvt-hr-pill-active i, .swvt-hr-pill-paid i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #12a150;
+    display: inline-block;
+}
+
+.swvt-hr-pill-inactive {
+    background: #f1f2f3;
+    color: #646970;
+}
+.swvt-hr-pill-inactive i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #9aa0a6;
+    display: inline-block;
+}
+
+.swvt-hr-pill-pending {
+    background: #fdf4dd;
+    color: #8a6100;
+}
+.swvt-hr-pill-pending i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #e0a800;
+    display: inline-block;
+}
+
+.swvt-hr-pill-hold {
+    background: #fbe9ea;
+    color: #b32d2e;
+}
+.swvt-hr-pill-hold i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d63638;
+    display: inline-block;
+}
+
+/* Avatars & Badges */
+.swvt-hr-branch-code {
+    min-width: 30px;
+    width: max-content;
+    padding: 0 6px;
+    height: 30px;
+    border-radius: 8px;
+    background: #eaf2fb;
+    color: #2271b1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.swvt-hr-emp-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #2271b1);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.swvt-hr-badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.swvt-hr-badge-success {
+    background: #e7f6ec;
+    color: #0a7c2f;
+}
+
+.swvt-hr-badge-warning {
+    background: #fdf4dd;
+    color: #8a6100;
+}
+
+.swvt-hr-badge-error {
+    background: #fbe9ea;
+    color: #b32d2e;
+}
+
+/* KPI Card Style */
+.swvt-hr-kpi-card {
+    background: #fff;
+    border: 1px solid #e2e4e7;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.swvt-hr-kpi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.swvt-hr-kpi-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swvt-hr-kpi-value {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.swvt-hr-kpi-label {
+    font-size: 12.5px;
+    color: #787c82;
+    margin-top: 3px;
+}
+
+/* Notices & Alerts */
+.swvt-hr-alert {
+    display: flex;
+    gap: 11px;
+    padding: 11px 12px;
+    border-radius: 9px;
+    margin-bottom: 10px;
+}
+
+.swvt-hr-alert-error {
+    background: #fdf6f6;
+    border-left: 3px solid #d63638;
+}
+
+.swvt-hr-alert-warning {
+    background: #fffdf5;
+    border-left: 3px solid #e0a800;
+}
+
+.swvt-hr-alert-info {
+    background: #f6faff;
+    border-left: 3px solid #2271b1;
+}
+
+.swvt-hr-alert-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.swvt-hr-alert-error .swvt-hr-alert-icon { background: #fbe9ea; color: #d63638; }
+.swvt-hr-alert-warning .swvt-hr-alert-icon { background: #fdf4dd; color: #b78a00; }
+.swvt-hr-alert-info .swvt-hr-alert-icon { background: #eaf2fb; color: #2271b1; }
+
+/* Modals */
+.swvt-hr-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(29, 35, 39, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.swvt-hr-modal {
+    background: #fff;
+    border-radius: 14px;
+    width: 420px;
+    max-width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: swvt-hr-modal-fade 0.25s ease-out;
+}
+
+@keyframes swvt-hr-modal-fade {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.swvt-hr-modal-body {
+    padding: 22px 22px 6px;
+    display: flex;
+    gap: 14px;
+}
+
+.swvt-hr-modal-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    background: #fdf4dd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #b78a00;
+}
+
+.swvt-hr-modal-actions {
+    padding: 18px 22px 22px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+/* Toggle Switches */
+.swvt-hr-toggle {
+    width: 40px;
+    height: 22px;
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    background: #c3c4c7;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+}
+
+.swvt-hr-toggle.active {
+    background: #12a150;
+}
+
+.swvt-hr-toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    transition: left 0.2s ease;
+}
+
+.swvt-hr-toggle.active .swvt-hr-toggle-knob {
+    left: 20px;
+}
+
+/* Charts / SVG charts styling */
+.swvt-hr-chart-trend {
+    padding: 10px;
+}
+
+.swvt-hr-chart-bar-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    height: 180px;
+    padding: 0 4px;
+}
+
+.swvt-hr-chart-bar-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.swvt-hr-chart-bar-val {
+    font-size: 10.5px;
+    color: #646970;
+    margin-bottom: 6px;
+    font-variant-numeric: tabular-nums;
+}
+
+.swvt-hr-chart-bar {
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+}
+
+.swvt-hr-chart-bar-label {
+    font-size: 11px;
+    color: #787c82;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.swvt-hr-chart-horizontal-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 13px;
+}
+
+.swvt-hr-chart-horizontal-label {
+    width: 76px;
+    font-size: 12px;
+    color: #3c434a;
+    flex-shrink: 0;
+}
+
+.swvt-hr-chart-horizontal-track {
+    flex: 1;
+    background: #f5f6f7;
+    border-radius: 999px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.swvt-hr-chart-horizontal-bar {
+    height: 20px;
+    background: #e0a800;
+    border-radius: 999px;
+}
+
+.swvt-hr-chart-horizontal-val {
+    width: 44px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #8a6100;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Compact annual payroll table */
+.swvt-hr-annual-payroll-card {
+    border-radius: 14px;
+}
+
+.swvt-hr-annual-payroll-card .swvt-hr-card-header {
+    padding: 14px 18px;
+}
+
+.swvt-hr-annual-payroll-subtitle {
+    font-size: 12px;
+    color: #7b8088;
+    margin-top: 2px;
+}
+
+.swvt-hr-annual-payroll-table {
+    min-width: 1320px;
+    font-size: 12px;
+}
+
+.swvt-hr-annual-payroll-table th {
+    padding: 10px 10px;
+    font-size: 11px;
+    letter-spacing: 0.01em;
+}
+
+.swvt-hr-annual-payroll-table td {
+    padding: 10px 10px;
+}
+
+.swvt-hr-annual-payroll-table th:first-child,
+.swvt-hr-annual-payroll-table td:first-child {
+    padding-left: 18px;
+}
+
+.swvt-hr-annual-payroll-table th:last-child,
+.swvt-hr-annual-payroll-table td:last-child {
+    padding-right: 18px;
+}
+
+.swvt-hr-annual-payroll-table .is-current-col {
+    background: #eef5fd;
+}
+
+.swvt-hr-annual-payroll-table .is-current-head {
+    color: #135e96;
+}
+
+.swvt-hr-annual-payroll-month-head {
+    min-width: 66px;
+    text-align: center;
+}
+
+.swvt-hr-annual-payroll-employee {
+    min-width: 250px;
+}
+
+.swvt-hr-annual-payroll-employee-name {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.swvt-hr-annual-payroll-employee-meta {
+    font-size: 10.5px;
+    color: #949aa3;
+    margin-top: 3px;
+    line-height: 1.25;
+}
+
+.swvt-hr-annual-payroll-status {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.swvt-hr-annual-payroll-dot {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.swvt-hr-annual-payroll-dot.is-paid {
+    background: #e7f6ec;
+    color: #0a7c2f;
+}
+
+.swvt-hr-annual-payroll-dot.is-pending {
+    background: #fdf4dd;
+    color: #b78a00;
+    font-size: 13px;
+}
+
+.swvt-hr-annual-payroll-label {
+    font-size: 10px;
+    margin-top: 4px;
+    line-height: 1;
+}
+
+.swvt-hr-annual-payroll-label.is-paid {
+    color: #0a7c2f;
+}
+
+.swvt-hr-annual-payroll-label.is-pending {
+    color: #b78a00;
+}
+
+.swvt-hr-annual-payroll-amount {
+    font-size: 10.5px;
+    color: #7b8088;
+    margin-top: 4px;
+    line-height: 1;
+}
+
+.swvt-hr-annual-payroll-empty {
+    color: #c3c4c7;
+    font-size: 14px;
+}
+
+.swvt-hr-annual-payroll-total {
+    min-width: 150px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.swvt-hr-annual-payroll-table .swvt-hr-table-footer td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+/* Compact branches directory */
+.swvt-hr-branches-compact .swvt-hr-branches-header {
+    padding: 10px 18px !important;
+    margin-bottom: 14px !important;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-header-icon {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 8px !important;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-title {
+    font-size: 16px !important;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-subtitle {
+    font-size: 11px !important;
+    margin-top: 1px;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-add-btn {
+    padding: 7px 12px;
+    font-size: 12px;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-table {
+    font-size: 12px;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-table th {
+    padding: 10px 12px;
+    font-size: 11px;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-table td {
+    padding: 9px 12px;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branch-code {
+    min-width: 32px;
+    width: max-content;
+    padding: 0 5px;
+    height: 32px;
+    border-radius: 8px;
+    font-size: 11px;
+    line-height: 1.05;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-name-cell {
+    font-size: 13px;
+}
+
+.swvt-hr-branches-compact .swvt-hr-pill {
+    padding: 3px 9px;
+    font-size: 11px;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-actions {
+    gap: 5px !important;
+}
+
+.swvt-hr-branches-compact .swvt-hr-branches-action-btn {
+    min-height: 30px;
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+    border-radius: 8px;
+}
+
+/* Tabbed Settings Dashboard Styling */
+.swvt-hr-settings-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    background: #ffffff;
+    border: 1px solid #dcdcde;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    overflow: hidden;
+    margin-top: 20px;
+}
+.swvt-hr-settings-sidebar {
+    background: #fafafb;
+    border-right: 1px solid #dcdcde;
+    padding: 10px 0;
+}
+.swvt-hr-settings-sidebar-item {
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #50575e;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+.swvt-hr-settings-sidebar-item:hover {
+    background: #f0f0f1;
+    color: #2271b1;
+}
+.swvt-hr-settings-sidebar-item.is-active {
+    background: #ffffff;
+    color: #2271b1;
+    border-left-color: #2271b1;
+    font-weight: 700;
+}
+.swvt-hr-settings-pane {
+    padding: 24px;
+    display: none;
+}
+.swvt-hr-settings-pane.is-active {
+    display: block;
+}
+
+/* Custom WordPress Admin Sidebar Menu styling for HR plugin pages (Step 14) */
+#adminmenu li.toplevel_page_swvt-hr,
+#adminmenu li.toplevel_page_swvt-hr-branches,
+#adminmenu li.toplevel_page_swvt-hr-employees,
+#adminmenu li.toplevel_page_swvt-hr-sales,
+#adminmenu li.toplevel_page_swvt-hr-payroll,
+#adminmenu li.toplevel_page_swvt-hr-commissions,
+#adminmenu li.toplevel_page_swvt-hr-attendance,
+#adminmenu li.toplevel_page_swvt-hr-performance,
+#adminmenu li.toplevel_page_swvt-hr-reports,
+#adminmenu li.toplevel_page_swvt-hr-settings {
+    background-color: #e5e5e8 !important;
+}
+
+#adminmenu li.toplevel_page_swvt-hr > a,
+#adminmenu li.toplevel_page_swvt-hr-branches > a,
+#adminmenu li.toplevel_page_swvt-hr-employees > a,
+#adminmenu li.toplevel_page_swvt-hr-sales > a,
+#adminmenu li.toplevel_page_swvt-hr-payroll > a,
+#adminmenu li.toplevel_page_swvt-hr-commissions > a,
+#adminmenu li.toplevel_page_swvt-hr-attendance > a,
+#adminmenu li.toplevel_page_swvt-hr-performance > a,
+#adminmenu li.toplevel_page_swvt-hr-reports > a,
+#adminmenu li.toplevel_page_swvt-hr-settings > a {
+    background-color: #e5e5e8 !important;
+    color: #000000 !important;
+}
+
+#adminmenu li.toplevel_page_swvt-hr .wp-menu-name,
+#adminmenu li.toplevel_page_swvt-hr-branches .wp-menu-name,
+#adminmenu li.toplevel_page_swvt-hr-employees .wp-menu-name,
+#adminmenu li.toplevel_page_swvt-hr-sales .wp-menu-name,
+#adminmenu li.toplevel_page_swvt-hr-payroll .wp-menu-name,
+#adminmenu li.toplevel_page_swvt-hr-commissions .wp-menu-name,
+#adminmenu li.toplevel_page_swvt-hr-attendance .wp-menu-name,
+#adminmenu li.toplevel_page_swvt-hr-performance .wp-menu-name,
+#adminmenu li.toplevel_page_swvt-hr-reports .wp-menu-name,
+#adminmenu li.toplevel_page_swvt-hr-settings .wp-menu-name {
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
+#adminmenu li.toplevel_page_swvt-hr .wp-menu-image:before,
+#adminmenu li.toplevel_page_swvt-hr-branches .wp-menu-image:before,
+#adminmenu li.toplevel_page_swvt-hr-employees .wp-menu-image:before,
+#adminmenu li.toplevel_page_swvt-hr-sales .wp-menu-image:before,
+#adminmenu li.toplevel_page_swvt-hr-payroll .wp-menu-image:before,
+#adminmenu li.toplevel_page_swvt-hr-commissions .wp-menu-image:before,
+#adminmenu li.toplevel_page_swvt-hr-attendance .wp-menu-image:before,
+#adminmenu li.toplevel_page_swvt-hr-performance .wp-menu-image:before,
+#adminmenu li.toplevel_page_swvt-hr-reports .wp-menu-image:before,
+#adminmenu li.toplevel_page_swvt-hr-settings .wp-menu-image:before {
+    color: #000000 !important;
+}
+
+/* Active current menu state styling */
+#adminmenu li.toplevel_page_swvt-hr.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr.current,
+#adminmenu li.toplevel_page_swvt-hr-branches.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr-branches.current,
+#adminmenu li.toplevel_page_swvt-hr-employees.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr-employees.current,
+#adminmenu li.toplevel_page_swvt-hr-sales.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr-sales.current,
+#adminmenu li.toplevel_page_swvt-hr-payroll.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr-payroll.current,
+#adminmenu li.toplevel_page_swvt-hr-commissions.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr-commissions.current,
+#adminmenu li.toplevel_page_swvt-hr-attendance.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr-attendance.current,
+#adminmenu li.toplevel_page_swvt-hr-performance.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr-performance.current,
+#adminmenu li.toplevel_page_swvt-hr-reports.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr-reports.current,
+#adminmenu li.toplevel_page_swvt-hr-settings.wp-has-current-submenu,
+#adminmenu li.toplevel_page_swvt-hr-settings.current {
+    background-color: #d1d2d5 !important;
+}
+
+#adminmenu li.toplevel_page_swvt-hr.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr.current > a,
+#adminmenu li.toplevel_page_swvt-hr-branches.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr-branches.current > a,
+#adminmenu li.toplevel_page_swvt-hr-employees.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr-employees.current > a,
+#adminmenu li.toplevel_page_swvt-hr-sales.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr-sales.current > a,
+#adminmenu li.toplevel_page_swvt-hr-payroll.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr-payroll.current > a,
+#adminmenu li.toplevel_page_swvt-hr-commissions.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr-commissions.current > a,
+#adminmenu li.toplevel_page_swvt-hr-attendance.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr-attendance.current > a,
+#adminmenu li.toplevel_page_swvt-hr-performance.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr-performance.current > a,
+#adminmenu li.toplevel_page_swvt-hr-reports.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr-reports.current > a,
+#adminmenu li.toplevel_page_swvt-hr-settings.wp-has-current-submenu > a,
+#adminmenu li.toplevel_page_swvt-hr-settings.current > a {
+    background-color: #d1d2d5 !important;
+    color: #000000 !important;
+}
+
+/* WP Current indicator triangle match */
+#adminmenu li.toplevel_page_swvt-hr.wp-has-current-submenu a.wp-has-current-submenu:after,
+#adminmenu li.toplevel_page_swvt-hr-branches.wp-has-current-submenu a.wp-has-current-submenu:after,
+#adminmenu li.toplevel_page_swvt-hr-employees.wp-has-current-submenu a.wp-has-current-submenu:after,
+#adminmenu li.toplevel_page_swvt-hr-sales.wp-has-current-submenu a.wp-has-current-submenu:after,
+#adminmenu li.toplevel_page_swvt-hr-payroll.wp-has-current-submenu a.wp-has-current-submenu:after,
+#adminmenu li.toplevel_page_swvt-hr-commissions.wp-has-current-submenu a.wp-has-current-submenu:after,
+#adminmenu li.toplevel_page_swvt-hr-attendance.wp-has-current-submenu a.wp-has-current-submenu:after,
+#adminmenu li.toplevel_page_swvt-hr-performance.wp-has-current-submenu a.wp-has-current-submenu:after,
+#adminmenu li.toplevel_page_swvt-hr-reports.wp-has-current-submenu a.wp-has-current-submenu:after,
+#adminmenu li.toplevel_page_swvt-hr-settings.wp-has-current-submenu a.wp-has-current-submenu:after {
+    border-right-color: #f0f0f1 !important;
+}
+
+/* ==================================================
+   LAYOUT SHELL: TOP BAR, TOASTS, SKELETONS & MODALS
+   ================================================== */
+
+.swvt-hr-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.swvt-hr-brand {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--primary-color);
+    letter-spacing: 0.5px;
+}
+
+.swvt-hr-search-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-secondary);
+    width: 220px;
+    transition: all 0.2s ease;
+}
+.swvt-hr-search-trigger:hover {
+    border-color: var(--primary-color);
+    background: var(--bg-surface);
+}
+.swvt-hr-search-trigger kbd {
+    margin-left: auto;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2px 5px;
+    font-size: 9px;
+    font-family: monospace;
+}
+
+.swvt-hr-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 6px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+.swvt-hr-icon-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+/* Theme Icon Toggling */
+.swvt-hr-erp-shell .sun-icon { display: none; }
+.swvt-hr-erp-shell .moon-icon { display: inline-block; }
+.swvt-hr-erp-shell.swvt-hr-dark .sun-icon { display: inline-block; }
+.swvt-hr-erp-shell.swvt-hr-dark .moon-icon { display: none; }
+
+/* Global Search Modal Overlay */
+.swvt-hr-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 100px;
+    z-index: 999999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+.swvt-hr-modal-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+.swvt-hr-modal-card.search-modal-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    width: 600px;
+    max-width: 95%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    overflow: hidden;
+    animation: slideDownSearch 0.2s ease-out;
+}
+@keyframes slideDownSearch {
+    from { transform: translateY(-20px); }
+    to { transform: translateY(0); }
+}
+
+.swvt-hr-search-modal-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    gap: 12px;
+    color: var(--text-secondary);
+}
+.swvt-hr-search-modal-header input {
+    border: none !important;
+    background: none !important;
+    outline: none !important;
+    font-size: 15px;
+    color: var(--text-primary);
+    width: 100%;
+    box-shadow: none !important;
+}
+.swvt-hr-search-modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.swvt-hr-search-results {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+}
+.swvt-hr-search-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    color: var(--text-primary) !important;
+    transition: background 0.2s ease;
+}
+.swvt-hr-search-item:hover {
+    background: var(--bg-hover);
+}
+.swvt-hr-search-item-type {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary-color);
+}
+.swvt-hr-search-item-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+.swvt-hr-search-item-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 1px;
+}
+.swvt-hr-search-placeholder {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 12.5px;
+}
+
+/* Toast Alerts Notification System */
+#swvt-hr-toast-container {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 1000000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 320px;
+}
+.swvt-hr-toast {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid #2271b1;
+    padding: 12px 18px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: toastSlideIn 0.3s ease-out forwards;
+}
+@keyframes toastSlideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+.swvt-hr-toast.success { border-left-color: #0f9d58; }
+.swvt-hr-toast.error { border-left-color: #c5221f; }
+.swvt-hr-toast.warning { border-left-color: #b78a00; }
+.swvt-hr-toast.info { border-left-color: #1a73e8; }
+.swvt-hr-toast-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--text-secondary);
+    padding: 0 0 0 10px;
+}
+
+/* Custom background adjustments on SWVT HR pages */
+body[class*="swvt-hr"] #wpcontent {
+    background-color: #f3f2f0 !important;
+}
+
+body[class*="swvt-hr"] #swvt-hr-erp-container {
+    background-color: #f3f2f0 !important;
+}
+
+/* Custom background and text color ONLY for SWVT HR menu items in the sidebar */
+#adminmenu li[id*="swvt-hr"],
+#adminmenu li[id*="swvt-hr"] > a,
+#adminmenu li[id*="swvt-hr"] .wp-menu-name,
+#adminmenu li[id*="swvt-hr"] .wp-submenu,
+#adminmenu li[id*="swvt-hr"] .wp-submenu-wrap {
+    background-color: #f3f2f0 !important;
+    color: #1d2327 !important;
+}
+
+#adminmenu li[id*="swvt-hr"] .wp-submenu a {
+    background-color: #f3f2f0 !important;
+    color: #3c434a !important;
+}
+
+#adminmenu li[id*="swvt-hr"] .wp-menu-image::before,
+#adminmenu li[id*="swvt-hr"] .wp-menu-image img,
+#adminmenu li[id*="swvt-hr"] div.wp-menu-image {
+    color: #1d2327 !important;
+}
+
+#adminmenu li[id*="swvt-hr"] .wp-submenu a:hover {
+    color: rgb(0, 83, 226) !important;
+}
+
